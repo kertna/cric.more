@@ -1,0 +1,11 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+<h2>RELATED PLAYERS</h2>
+{% for post in players %}
+
+<a href="{% url 'playerProfile' post.name %}"><h3>{{post.name}}</h3></a>
+
+{% endfor%}
+
+{% endblock content %}

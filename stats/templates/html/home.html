@@ -1,0 +1,82 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="banner">
+        <div class="inner">
+            <h3>CRICMORE PRESENTS</h3>
+            <ul class="actions">
+                <li><a href="#content" class="button big special">Statistics</a></li>
+                <li><a href="#elements" class="button big alt">Fantasy Prediction</a></li>
+            </ul>
+        </div>
+    </section>
+    
+     <!-- One -->
+     <section id="one" class="wrapper style1">
+        <header class="major">
+            <h2>Know the player</h2>
+            <p>Player Statistics</p>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="4u">
+                    <section class="special box">
+                        <a href="#" class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt=""/></a>
+                        <a href="#"><h3 >Virat Kohli</h3></a>
+                        <p>Indian Cricketer and the current captain of the Indian  national team. A right-handed top-order batsman</p>
+                    </section>
+                </div>
+                <div class="4u">
+                    <section class="special box">
+                    <a href="#" class="image fit"><img src="{% static 'images/warner.jpg' %}" alt=""/></a>
+                        <a href="#"><h3>David Warner</h3></a>
+                        <p>Australian cricketer and a former captain of the Australian national team. A left-handed opening batsman</p>
+                    </section>
+                </div>
+                <div class="4u">
+                    <section class="special box">
+                        <a href="#" class="image fit"><img src="{% static 'images/dhoni.jpg' %}" alt=""/></a>
+                        <a href="#"><h3>MS Dhoni</h3></a>
+                        <p>A former Indian cricketer who captained the Indian national team.A right-handed middle-order batsman and wicket-keeper</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Two -->
+    <section id="two" class="wrapper style2">
+        <header class="major">
+            <h2>Fantasy Prediction</h2>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="6u">
+                    <section class="special">
+                        <a href="#" class="image fit"><img src="{% static 'images/mivssrh.jpg' %}" alt=""/></a>
+                        <h3>MI vs SRH</h3>
+                        <p> Dream11 Fantasy Team T20 18 of 60 , Probable XI, Grand League Contest| Apr 9, 2021 | Fantasy Cricket
+                        MI vs SRH Dream11 Prediction and Fantasy Cricket, which will be playing at Chidambaram Stadium,Chennai</p>
+                        <ul class="actions">
+                            <li><a href="#" class="button alt">Predict</a></li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="6u">
+                    <section class="special">
+                        <a href="#" class="image fit"><img src="{% static 'images/cskvsrcb.jpg' %}" alt=""/></a>
+                        <h3>CSK vs RCB</h3>
+                        <p>Dream11 Fantasy Team T20 19 of 60 , Probable XI, Grand League Contest| Apr 25, 2021 | Fantasy Cricket
+                        CSK vs RCB Dream11 Prediction and Fantasy Cricket, which will be playing at Wankhede Stadium</p>
+                        <ul class="actions">
+                            <li><a href="#" class="button alt">Predict</a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Three -->
+    
+{% endblock content %}

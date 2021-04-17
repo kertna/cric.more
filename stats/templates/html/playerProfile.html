@@ -1,0 +1,89 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/style-profile.css' %}">
+    <div class="section">
+        <div class="w-container">
+            <div class="columns w-row">
+                
+                <div class="column w-col w-col-9">
+                    <h1 class="heading">{{player.name}}<br></h1>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-2">
+        <div class="w-container">
+            <div class="w-layout-grid">
+                <div><h2 class="heading-2">Batting</h2></div>
+                <div class="columns-1 w-row">
+                    <div class="column-1 w-col w-col-6">
+                        <br>
+                        <div>Innings</div>
+                        <div>Runs Scored</div>
+                        <div>Average</div>
+                        <div>Strike rate</div>
+                        <div>Not Outs</div>
+                        <div>4's</div>
+                        <div>6's</div>
+                        <div>50's</div>
+                        <div>100's</div>
+                    </div>
+                    <div class="column-2 w-col w-col-6">
+                        <div>{{player.innings}}</div>
+                        <div>{{player.runs}}</div>
+                        <div>{{player.average}}</div>
+                        <div>{{player.strikerate}}</div>
+                        <div>{{player.notouts}}</div>
+                        <div>{{player.fours}}</div>
+                        <div>{{player.sixes}}</div>
+                        <div>{{player.fifties}}</div>
+                        <div>{{player.hundreds}}</div>
+                    
+                    </div>
+                </div>
+                <div><h2 class="heading-2">Bowling</h2></div>
+                <div class="columns-2 w-row">
+                    <div class="column-3 w-col w-col-6">
+                        <div>Overs Bowled</div>
+                        <div>Wickets</div>
+                        <div>Bowling Average</div>
+                        <div>Bowling Strike Rate</div>
+                        <div>Economy</div>
+                        <div>Three wicket hauls</div>
+                        <div>Five wicket hauls</div>
+                    
+                    </div>
+                    <div class="column-4 w-col w-col-6">
+                        <div>{{player.oversbowled}}</div>
+                        <div>{{player.wickets}}</div>
+                        <div>{{player.bowlavg}}</div>
+                        <div>{{player.bowlsr}}</div>
+                        <div>{{player.economy}}</div>
+                        <div>{{player.threehaul}}</div>
+                        <div>{{player.fivehaul}}</div>
+
+
+                    </div>
+
+                </div>
+                <div><h2 class="heading-2">Fielding</h2></div>
+                <div class="columns-3 w-row">
+                    <div class="column-5 w-col w-col-6">
+                        <div>Catches</div>
+                        
+                    </div>
+                    <div class="column-6 w-col w-col-6">
+                        <div>{{player.catches}}</div>
+                       
+
+                    </div>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
