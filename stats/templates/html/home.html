@@ -7,7 +7,7 @@
         <div class="inner">
             <h3>CRICMORE PRESENTS</h3>
             <ul class="actions">
-                <li><a href="#content" class="button big special">Statistics</a></li>
+                <li><a class="button big special" href="{% url 'filter' %}" >Statistics</a></li>
                 <li><a href="#elements" class="button big alt">Fantasy Prediction</a></li>
             </ul>
         </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="4u">
                     <section class="special box">
-                    <a href="#" class="image fit"><img src="{% static 'images/warner.jpg' %}" alt=""/></a>
+                    <a href="{% url 'playerProfile' 'V Kohli' %}" class="image fit"><img src="{% static 'images/warner.jpg' %}" alt=""/></a>
                         <a href="#"><h3>David Warner</h3></a>
                         <p>Australian cricketer and a former captain of the Australian national team. A left-handed opening batsman</p>
                     </section>

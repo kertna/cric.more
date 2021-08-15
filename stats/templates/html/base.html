@@ -36,12 +36,13 @@
                   
             </li>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'register' %}">Register</a></li>
-            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'm' %}">Matchups</a></li>
+            <li><a href="{% url 'filter' %}">Filters</a></li>
             
         </ul>
     </nav>
 </header>
+
 {% if messages %}
    {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -52,6 +53,7 @@
 {% block content %}{% endblock %}
 
 <!-- Footer -->
+<br>
 <footer id="footer">
     <div class="container">
         <div class="row double">

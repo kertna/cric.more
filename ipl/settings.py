@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'ipl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'btpipldb2',
+        'NAME': 'database-18',
         'CLIENT': {
            'host': 'localhost:27017',
         }

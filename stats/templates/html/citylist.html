@@ -1,0 +1,11 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+<h2>TEAMS </h2>
+{% for post in player %}
+
+<a href="{% url 'playerProfile2' id=post.id %}"><h3>{{post.City}}</h3></a>
+
+{% endfor%}
+
+{% endblock content %}

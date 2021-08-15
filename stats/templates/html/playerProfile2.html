@@ -1,0 +1,169 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/style-profile.css' %}">
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url("{% static 'images/d2.jpg' %}");
+  background-repeat: no-repeat;
+  background-size: 2000px 800px;
+}
+.ki
+{
+
+}
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 33%;
+  padding: 0 10px;
+  
+  margin-left:125px;
+
+  
+ 
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;background-image: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fcricket%2Bground&psig=AOvVaw36WGQLrCaY_DK__Cug8K62&ust=1620569357827000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC7sMShuvACFQAAAAAdAAAAABAX;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+}
+
+</style>
+</head>
+<body>
+  <div class="ki">
+   
+       
+            <div class="columns w-row">
+                
+                <div class="column w-col w-col-9">
+                    <br>
+                    <h1 class="heading" style ="border-left: 6px solid blue;
+                    background-color: lightblue;padding: 5px;">{{player.name}}<br></h1>
+                    
+                </div>
+            </div>
+    
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3 style="color: black;">BATTING</h3>
+      <div class="columns-1 w-row">
+        <div class="column-1 w-col w-col-6">
+            <br>
+            <div>Innings</div>
+            <div>Runs</div>
+            <div>Average</div>
+            <div>Strike rate</div>
+            
+            
+            <div>50's</div>
+            <div>100's</div>
+        </div>
+        <div class="column-2 w-col w-col-6">
+            <br>
+            <div>{{player.innings}}</div>
+            <div>{{player.runs}}</div>
+            <div>{{player.average}}</div>
+            <div>{{player.strikerate}}</div>
+           
+          
+            <div>{{player.fifties}}</div>
+            <div>{{player.hundreds}}</div>
+        
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <h3 style="color: black;">BOWNLING</h3>
+      <div class="columns-2 w-row">
+        <div class="column-3 w-col w-col-6">
+            
+            <br>
+            <div>Overs Bowled</div>
+            <div>Wickets</div>
+            <div>Bowling Average</div>
+            <div>Bowling Strike Rate</div>
+            <div>Economy</div>
+            <div>Three wicket hauls</div>
+            <div>Five wicket hauls</div>
+            <div>Catches</div>
+        
+        </div>
+        <div class="column-4 w-col w-col-6">
+            <br>
+            <div>{{player.oversbowled}}</div>
+            <div>{{player.wickets}}</div>
+            <div>{{player.bowlavg}}</div>
+            <div>{{player.bowlsr}}</div>
+            <div>{{player.economy}}</div>
+            <div>{{player.threehaul}}</div>
+            <div>{{player.fivehaul}}</div>
+            <div>{{player.catches}}</div>
+
+        </div>
+
+    </div>
+    </div>
+  </div>
+  
+  
+  <div class="column">
+    <div class="card">
+   
+      <h3 style="color: black;">OTHERS</h3>
+      <b></b><a href="default.asp" target="_blank">Statistics for each Team played</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics in City</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics at Position</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics in Powerplay</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics in MiddleOvers</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics in DeathOvers</a></b><br>
+        <b><a href="default.asp" target="_blank">Statistics against Team</a></b><br>
+   </div>
+  </div>
+  
+</div>
+</div>
+</body>
+</html>
+
+    
+{% endblock content %}
