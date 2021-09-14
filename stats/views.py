@@ -1148,7 +1148,6 @@ def matchuprecords(request):
                 
             for x in list_cricket["innings"][0]["1st innings"]["deliveries"]:
                 k=[key for key,value in x.items()]
-                print(k[0])
                 ls.append(k[0])
             
             k=0
@@ -1197,8 +1196,17 @@ def matchuprecords(request):
                 if "wicket" in p.keys():
                     wi=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]["player_out"]
                     #print(wi,end=":")
+                    outupdates= Player.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate=Player(name=wi)
+                        outupdate.save()
+
                     outupdate=Player.objects.get(name=wi)
-                    
+
+                    outupdates= Matchups.objects.filter(name=wi,bowler=bo)
+                    if not outupdates:
+                        outupdate1=Matchups(name=wi,bowler=bo)
+                        outupdate1.save()
                     outupdate1=Matchups.objects.get(name=wi,bowler=bo)
                   
                     ki=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]["kind"]
@@ -1263,9 +1271,19 @@ def matchuprecords(request):
                 if "wicket" in p.keys():
                     wi=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["player_out"]
                     #print(wi,end=":")
+                    outupdates= Player.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate=Player(name=wi)
+                        outupdate.save()
+
                     outupdate=Player.objects.get(name=wi)
-                    
+
+                    outupdates= Matchups.objects.filter(name=wi,bowler=bo)
+                    if not outupdates:
+                        outupdate1=Matchups(name=wi,bowler=bo)
+                        outupdate1.save()
                     outupdate1=Matchups.objects.get(name=wi,bowler=bo)
+                  
                   
                     ki=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["kind"]
            
