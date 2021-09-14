@@ -1,0 +1,117 @@
+.single {
+    width: 1000px;
+    padding: 30px 15px;
+    margin-top: 80px;
+}
+
+.single h3.side-title {
+    padding: 0;
+    font-size: 30px;
+    color: #155799;
+    text-transform: uppercase;
+    text-indent: 40px;
+}
+
+.w-layout-grid {
+    display: -ms-grid;
+    display: grid;
+    grid-auto-columns: 1fr;
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    -ms-grid-rows: auto auto;
+    grid-template-rows: auto auto;
+    grid-row-gap: 16px;
+    grid-column-gap: 16px;
+}
+
+.grid {
+    margin-top: 0px;
+    margin-right: 220px;
+    margin-left: 50px;
+    padding: 0px;
+    grid-column-gap: 51px;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+.section {
+    margin-right: 220px;
+    margin-left: 50px;
+    color: #e81a30;
+}
+
+.section-2 {
+    display: block;
+    margin-top: 60px;
+    margin-right: 220px;
+    margin-left: 50px;
+    color: #e81a30;
+}
+
+.grid-2 {
+    position: relative;
+    margin-right: 220px;
+    margin-left: 50px;
+    grid-column-gap: 51px;
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    text-align: right;
+    font-size: 'varela Round', sans-serif;
+}
+
+.grid-3 {
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+.grid-4 {
+    grid-auto-flow: column;
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+#w-node-_062f8329-fb73-e41f-a99c-5c7136961729-be2bc540 {
+    grid-row: span 1;
+    grid-row-start: span 1;
+    grid-template-columns: 1fr;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+#w-node-_062f8329-fb73-e41f-a99c-5c7136961729-be2bc540 {
+    grid-row: span 1;
+    grid-row-start: span 1;
+    -ms-grid-row-span: 1;
+    grid-row-end: span 1;
+    grid-column: span 1;
+    grid-column-start: span 1;
+    -ms-grid-column-span: 1;
+    grid-column-end: span 1;
+}
+
+h4 {
+    color: black;
+    font-size: large;
+    font-family: Serif, sans-serif;
+}
+
+h3 {
+    font-size: x-large;
+    color: #da4453;
+    font-weight: bold;
+}
+
+.row-1,
+.row-2 {
+    border-radius: 15px;
+    border: ridge;
+}
+
+.w-container {
+    margin-left: 50px;
+    margin-bottom: 50px;
+}

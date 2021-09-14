@@ -2,81 +2,277 @@
 {% load static %}
 {% block content %}
 
-    <!-- Banner -->
-    <section id="banner">
-        <div class="inner">
-            <h3>CRICMORE PRESENTS</h3>
-            <ul class="actions">
-                <li><a class="button big special" href="{% url 'filter' %}" >Statistics</a></li>
-                <li><a href="#elements" class="button big alt">Fantasy Prediction</a></li>
-            </ul>
-        </div>
-    </section>
-    
-     <!-- One -->
-     <section id="one" class="wrapper style1">
-        <header class="major">
-            <h2>Know the player</h2>
-            <p>Player Statistics</p>
-        </header>
-        <div class="container">
-            <div class="row">
-                <div class="4u">
-                    <section class="special box">
-                        <a href="#" class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt=""/></a>
-                        <a href="#"><h3 >Virat Kohli</h3></a>
-                        <p>Indian Cricketer and the current captain of the Indian  national team. A right-handed top-order batsman</p>
-                    </section>
-                </div>
-                <div class="4u">
-                    <section class="special box">
-                    <a href="{% url 'playerProfile' 'V Kohli' %}" class="image fit"><img src="{% static 'images/warner.jpg' %}" alt=""/></a>
-                        <a href="#"><h3>David Warner</h3></a>
-                        <p>Australian cricketer and a former captain of the Australian national team. A left-handed opening batsman</p>
-                    </section>
-                </div>
-                <div class="4u">
-                    <section class="special box">
-                        <a href="#" class="image fit"><img src="{% static 'images/dhoni.jpg' %}" alt=""/></a>
-                        <a href="#"><h3>MS Dhoni</h3></a>
-                        <p>A former Indian cricketer who captained the Indian national team.A right-handed middle-order batsman and wicket-keeper</p>
-                    </section>
-                </div>
+   <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <ol id="hero-carousel-indicators" class="carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+          <div class="carousel-item active" style="background-image: url(../static/assets/img/hero-carousel/10.png)">
+            <div class="carousel-container">
+              <div class="container">
+                <h2 class="animate__animated animate__fadeInDown">Fantasy </h2>
+                <p class="animate__animated animate__fadeInUp">IPL Match Prediction</p>
+                <a href="{% url 'Fantasy' %}" class="btn-get-started scrollto animate__animated animate__fadeInUp">See More</a>
+              </div>
             </div>
-        </div>
-    </section>
-    <!-- Two -->
-    <section id="two" class="wrapper style2">
-        <header class="major">
-            <h2>Fantasy Prediction</h2>
-        </header>
-        <div class="container">
-            <div class="row">
-                <div class="6u">
-                    <section class="special">
-                        <a href="#" class="image fit"><img src="{% static 'images/mivssrh.jpg' %}" alt=""/></a>
-                        <h3>MI vs SRH</h3>
-                        <p> Dream11 Fantasy Team T20 18 of 60 , Probable XI, Grand League Contest| Apr 9, 2021 | Fantasy Cricket
-                        MI vs SRH Dream11 Prediction and Fantasy Cricket, which will be playing at Chidambaram Stadium,Chennai</p>
-                        <ul class="actions">
-                            <li><a href="#" class="button alt">Predict</a></li>
-                        </ul>
-                    </section>
-                </div>
-                <div class="6u">
-                    <section class="special">
-                        <a href="#" class="image fit"><img src="{% static 'images/cskvsrcb.jpg' %}" alt=""/></a>
-                        <h3>CSK vs RCB</h3>
-                        <p>Dream11 Fantasy Team T20 19 of 60 , Probable XI, Grand League Contest| Apr 25, 2021 | Fantasy Cricket
-                        CSK vs RCB Dream11 Prediction and Fantasy Cricket, which will be playing at Wankhede Stadium</p>
-                        <ul class="actions">
-                            <li><a href="#" class="button alt">Predict</a></li>
-                        </ul>
-                    </section>
-                </div>
+          </div>
+
+          <div class="carousel-item" style="background-image: url(../static/assets/img/hero-carousel/5.jpg)">
+            <div class="carousel-container">
+              <div class="container">
+                <h2 class="animate__animated animate__fadeInDown">Player Statistics</h2>
+                <p class="animate__animated animate__fadeInUp">A detailed Player Statistics Version</p>
+                <a href="{% url 'PlayerStats' %}" class="btn-get-started scrollto animate__animated animate__fadeInUp">See More</a>
+              </div>
             </div>
+          </div>
+
+          <div class="carousel-item" style="background-image: url(../static/assets/img/hero-carousel/6.jpg)">
+            <div class="carousel-container">
+              <div class="container">
+                <h2 class="animate__animated animate__fadeInDown">  Success Story</h2>
+                <p class="animate__animated animate__fadeInUp">Look Into Our Previous Predictions</p>
+                <a href="#" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get started</a>
+              </div>
+            </div>
+          </div>
+
         </div>
-    </section>
-    <!-- Three -->
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <div id="about" class="about-area area-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Today's Predictions</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- single-well start-->
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="well-middle">
+              <div class="single-well">
+                <a href="#">
+                  <img src="../static/assets/img/about/3.jpg" alt="">
+                </a>
+                CSK vs RCB
+                <p>
+                Probable XI, Grand League Contest| Fantasy Cricket CSK vs RCB Dream11 Prediction and Fantasy Cricket, which will be playing at Chidambaram Stadium,Chennai</p>
+              </div>
+            </div>
+          </div>
+          <!-- single-well end-->
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="well-middle">
+              <div class="single-well">
+                <a href="#">
+                  <img src="../static/assets/img/about/2.jpg" alt="">
+                </a>
+                MI vs SRH
+                <p>
+                Probable XI, Grand League Contest| Fantasy Cricket MI vs SRH Dream11 Prediction and Fantasy Cricket, which will be playing atWankhede Stadium,Mumbai </p>
+              </div>
+            </div>
+          </div>
+          <!-- End col-->
+        </div>
+      </div>
+    </div><!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    <div id="services" class="services-area area-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline services-head text-center">
+              <h2>Filters</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center">
+          <!-- Start Left services -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="{% url 'filterruns' %}">
+                    <i class="bi-people" ></i>
+                  </a>
+                  <a href="{% url 'filterruns' %}"><h4>Most Runs</h4></a>
+                  <p> 
+                  </p>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="{% url 'filtereco' %}">
+                    <i class="bi-person-fill"></i>
+                  </a>
+                  <a href="{% url 'filtereco' %}"><h4>Best Economy</h4></a>
+                  <p>
+                  </p>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <!-- end col-md-4 -->
+            <div class=" about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="{% url 'filtersixes' %}">
+                    <i class="bi-people"></i>
+                  </a>
+                  <a href="{% url 'filtersixes' %}"><h4>Most Sixes</h4></a>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <!-- end col-md-4 -->
+            <div class=" about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="{% url 'filterstrikerate' %}">
+                    <i class="bi-person"></i>
+                  </a>
+                  <a href="{% url 'filterstrikerate' %}"><h4>Best Strike Rate</h4></a>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <!-- End Left services -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <!-- end col-md-4 -->
+            <div class=" about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="{% url 'filterwickets' %}">
+                    <i class="bi-people-fill"></i>
+                  </a>
+                  <a href="{% url 'filterwickets' %}"><h4>Most Wickets</h4></a>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+          <!-- End Left services -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <!-- end col-md-4 -->
+            <div class=" about-move">
+              <div class="services-details">
+                <div class="single-services">
+                  <a class="services-icon" href="#">
+                    <i class="bi-person"></i>
+                  </a>
+                  <a href="{% url 'filteravg' %}"><h4>Best Average</h4></a>
+                </div>
+              </div>
+              <!-- end about-details -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Services Section -->
+    <!-- ======= Testimonials Section ======= -->
+    <div id="testimonials" class="testimonials">
+      <div class="container">
+
+        <div class="testimonials-slider swiper-container">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/Harshal-patel.jpeg" class="testimonial-img" alt="">
+                <h3>Harshal Patel</h3>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Harshal Patel is a Purple Cap Holder plays for Royal Challengers Bangalore in the IPL 2021.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/Avesh-Khan.jpeg" class="testimonial-img" alt="">
+                <h3>Avesh Khan</h3>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Avesh Khan is in the race for purple cap who plays for Delhi Capitals in the IPL 2021.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/Shikhar-Dhawan1-768x384.jpg" class="testimonial-img" alt="">
+                <h3>Shikhar Dhawan</h3>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Shikhar Dhawan is an Orange cap holder  who plays for Delhi Capitals in the IPL 2021.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/KL-Rahul.jpg" class="testimonial-img" alt="">
+                <h3>KL Rahul</h3>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  KL Rahul  is in the race for Orange cap who plays for Delhi Capitals in the IPL 2021.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/Jofra Archer.jpg" class="testimonial-img" alt="">
+                <h3>Jofra Archer</h3>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Jofra Archer is in the position for Most Valuable Player(MVP)  who plays for Rajasthan Royals in the IPL 2021
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </div><!-- End Testimonials Section -->
     
 {% endblock content %}

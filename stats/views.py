@@ -116,14 +116,14 @@ def middleover(request, id):
     if players:
         players=MiddleOvers.objects.get(name=id)
 
-        return render(request, '../templates/html/mo.html',context={'player':player})
+        return render(request, '../templates/html/mo.html',context={'player':players})
     else:
         return render(request, '../templates/html/i.html')
 def deathover(request, id):
     players=DeathOvers.objects.filter(name=id)
     if players:
-        player=DeathOvers.objects.get(name=id)
-        return render(request, '../templates/html/do.html',context={'player':player})
+        players=DeathOvers.objects.get(name=id)
+        return render(request, '../templates/html/do.html',context={'player':players})
     else:
         return render(request, '../templates/html/i.html')
 def citylist(request,id):
@@ -239,24 +239,32 @@ def login(request):
 
 def createprofile(request):
     all=glob.glob("./stats/*.yaml")
+    q=0
     for f in all:
+        
+    
+        print("ayyy")
+
+   
         with open(f,'r') as file:
-            every=Player.objects.all()
-            for z in every:
-                z.currentrunszero()
-            every1=PlayerTeam.objects.all()
-            for z in every1:
-                z.currentrunszero()
-            every2=City.objects.all()
-            for z in every2:
-                z.currentrunszero()
-            every3=Position.objects.all()
-            for z in every3:
-                z.currentrunszero()
-            list_cricket=yaml.full_load(file)
-            ls=[]
+            #setting currents runs as 0
+            q=q+1
+            print(q)
+            print("------------------------vacharoi-----------------")
             
-            batlist=[]
+            curbatlist=[]
+            curbowllist=[]
+
+
+           #every3=Position.objects.all()
+           # for z in every3:
+                #z.currentrunszero()
+
+            
+            list_cricket=yaml.full_load(file)
+            ls=[]#list of deliveries
+            
+            batlist=[]#list of all batsmen
             pp=[]
             mid=[]
             death=[]
@@ -278,9 +286,58 @@ def createprofile(request):
                 if k[0]>16:
                     death.append(k[0])
         k=0
-        posi=1
+        #posi=1
+        l=0
         dicti={}
         for i in ls:
+            b=list_cricket["innings"][0]["1st innings"]["deliveries"][l][i]["batsman"]
+            if b not in curbatlist:
+                curbatlist.append(b)
+            m=Player.objects.filter(name=b)
+            if m:
+                mo=Player.objects.get(name=b)
+                mo.currentrunszero()
+            m=PlayerTeam.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+            m=AgainstTeam.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+            m=City.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+
+            bo=list_cricket["innings"][0]["1st innings"]["deliveries"][l][i]["bowler"]
+            if bo not in curbowllist:
+                curbowllist.append(bo)
+            m=Player.objects.filter(name=bo)
+            #print(m)
+            if m:
+                #print(m)
+                mp=Player.objects.get(name=bo)
+                mp.currentwicketszero()
+            m=PlayerTeam.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+            m=AgainstTeam.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+            m=City.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+
+            l=l+1
+
+
+            
+        for i in ls:
+
             wide=0
             legbyes=0
             e=0
@@ -291,14 +348,16 @@ def createprofile(request):
             b=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["batsman"]
             if b not in batlist:
                 batlist.append(b)
-                posb=Position.objects.filter(name=b,position=posi)
-                if not posb:
+                #posb=Position.objects.filter(name=b,position=posi)
+                #if not posb:
                     
-                    posb=Position(name=b,position=posi)
-                    posb.save()
-                posb=Position.objects.get(name=b,position=posi)
-                dicti[b]=posb
-                posi=posi+1
+                    #posb=Position(name=b,position=posi)
+                    #posb.save()
+               # posb=Position.objects.get(name=b,position=posi)
+                #print("#")
+                #print(b)
+                #dicti[b]=posb
+                #posi=posi+1
             bo=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["bowler"]
             runs=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["runs"]["batsman"]
             total=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["runs"]["total"]
@@ -357,22 +416,22 @@ def createprofile(request):
             prot=PlayerTeam.objects.get(name=pla,Team=team1)
             citi=City.objects.get(name=pla, City=city)
             agi=AgainstTeam.objects.get(name=pla,Team=team2)
-            posb=dicti[b]
+            #posb=dicti[b]
             prot.updateruns(runs)
             agi.updateruns(runs)
-            posb.updateruns(runs)
+            #posb.updateruns(runs)
             prot.setcurrentruns(runs)
             agi.setcurrentruns(runs)
             citi.updateruns(runs)
             citi.setcurrentruns(runs)
-            posb.setcurrentruns(runs)
+            #posb.setcurrentruns(runs)
             pla.updateruns(runs)
             pla.setcurrentruns(runs)
             if wide==0:
                 pla.updateballsfaced()
                 prot.updateballsfaced()
                 citi.updateballsfaced()
-                posb.updateballsfaced()
+               # posb.updateballsfaced()
                 agi.updateballsfaced()
                 if i<7:
                     play.ppupdateballsfaced()
@@ -394,20 +453,20 @@ def createprofile(request):
                 profile=Player(name=bo)
                 profile.save()
             pla=Player.objects.get(name=bo)
-            plat=PlayerTeam.objects.filter(name=pla,Team=team1)
+            plat=PlayerTeam.objects.filter(name=pla,Team=team2)
             citu=City.objects.filter(name=pla,City=city)
-            aga=AgainstTeam.objects.filter(name=pla, Team=team2)
+            aga=AgainstTeam.objects.filter(name=pla, Team=team1)
             if not plat:
-                profileteam=PlayerTeam(name=pla,Team=team1)
+                profileteam=PlayerTeam(name=pla,Team=team2)
                 profileteam.save()
             if not citu:
                 procit=City(name=pla, City=city)
                 procit.save()
             if not aga:
-                pi=AgainstTeam(name=pla,Team=team2)
+                pi=AgainstTeam(name=pla,Team=team1)
                 pi.save()
-            prot=PlayerTeam.objects.get(name=pla,Team=team1)
-            agn=AgainstTeam.objects.get(name=pla,Team=team2)
+            prot=PlayerTeam.objects.get(name=pla,Team=team2)
+            agn=AgainstTeam.objects.get(name=pla,Team=team1)
             citu=City.objects.get(name=pla, City=city)
             if i<7:
                 profile=PowerPlay.objects.filter(name=pla)
@@ -459,43 +518,63 @@ def createprofile(request):
                     if not outupdat :
                         outupdate = Player(name=wi)
                         outupdate.save()
-                    outupdate=Player.objects.get(name=wi)
-                    outupdate.out()
-                    outupdat = PlayerTeam.objects.filter(name=outupdate, Team=team1)
+                    playeroutupdate=Player.objects.get(name=wi)
+                    playeroutupdate.out()
+                    #posb=Position.objects.filter(name=wi,position=posi)
+                    #if not posb:
+                        
+                        #posb=Position(name=wi,position=posi)
+                        #posb.save()
+                       # posb=Position.objects.get(name=wi,position=posi)
+                       # dicti[wi]=posb
+                        #posi=posi+1
+                    outupdat = PlayerTeam.objects.filter(name=playeroutupdate, Team=team1)
                     if not outupdat :
-                        outupdate = PlayerTeam(name=outupdate,Team=team1)
+                        outupdate = PlayerTeam(name=playeroutupdate,Team=team1)
                         outupdate.save()
-                    outupdate1=PlayerTeam.objects.get(name=outupdate,Team=team1)
-                    outupdat = AgainstTeam.objects.filter(name=outupdate,Team=team2)
+                    outupdate1=PlayerTeam.objects.get(name=playeroutupdate,Team=team1)
+                    outupdat = AgainstTeam.objects.filter(name=playeroutupdate,Team=team2)
                     if not outupdat :
-                        outupdate = AgainstTeam(name=outupdate,Team=team2)
+                        outupdate = AgainstTeam(name=playeroutupdate,Team=team2)
                         outupdate.save()
-                    ou=AgainstTeam.objects.get(name=outupdate, Team=team2)
-                    outupdat = City.objects.filter(name=outupdate,City=city)
+                    ou=AgainstTeam.objects.get(name=playeroutupdate, Team=team2)
+                    outupdat = City.objects.filter(name=playeroutupdate,City=city)
                     if not outupdat :
-                        outupdate = City(name=outupdate,City=city)
+                        outupdate = City(name=playeroutupdate,City=city)
                         outupdate.save()
-                    procit=City.objects.get(name=outupdate, City=city)
+                    procit=City.objects.get(name=playeroutupdate, City=city)
                     
                     outupdate1.out()
                     ou.out()
                     procit.out()
-                    outupdat = Position.objects.filter(name=wi,position=dicti[wi].position)
-                    if not outupdat :
-                        outupdate = Position(name=wi,position=dicti[wi].position)
-                        outupdate.save()
-                    outupdate3=Position.objects.get(name=wi,position=dicti[wi].position)
-                    outupdate3.out()
+                    #outupdat = Position.objects.filter(name=wi,position=dicti[wi].position)
+                    #if not outupdat :
+                        #outupdate = Position(name=wi,position=dicti[wi].position)
+                        #outupdate.save()
+                    #outupdate3=Position.objects.get(name=wi,position=dicti[wi].position)
+                    #outupdate3.out()
                     if i<7:
                         playoutupdate=Player.objects.get(name=wi)
+                        ppoutupdate= PowerPlay.objects.filter(name=playoutupdate)
+                        if not ppoutupdate:
+                            ppoutupdate= PowerPlay(name=playoutupdate)
+                            ppoutupdate.save()
                         ppoutupdate=PowerPlay.objects.get(name=playoutupdate)
                         ppoutupdate.ppout()
                     if i>=7 and i<16:
                         playoutupdate=Player.objects.get(name=wi)
+                        midoutupdate= MiddleOvers.objects.filter(name=playoutupdate)
+                        if not midoutupdate:
+                            midoutupdate= MiddleOvers(name=playoutupdate)
+                            midoutupdate.save()
                         midoutupdate=MiddleOvers.objects.get(name=playoutupdate)
                         midoutupdate.midout()
                     if i>=16:
                         playoutupdate=Player.objects.get(name=wi)
+                        deathoutupdate= DeathOvers.objects.filter(name=playoutupdate)
+                        if not deathoutupdate:
+                            deathoutupdate= DeathOvers(name=playoutupdate)
+                            deathoutupdate.save()
                         deathoutupdate=DeathOvers.objects.get(name=playoutupdate)
                         deathoutupdate.deathout()
                     
@@ -510,25 +589,36 @@ def createprofile(request):
                         if not fiel:
                             profile=Player(name=c)
                             profile.save()
-
+                        
                         fiel=Player.objects.get(name=c)
-                        fiel.updatecatches()
-                        pla.updatewickets()
-                        prot.updatewickets()
-                        citu.updatewickets()
-                        if i<7:
-                            play.ppupdatewickets()
-                        if i>=7 and i<16:
-                            player.midupdatewickets()
-                        if i>=16:
-                            players.deathupdatewickets()
+                        if ki!="run out":
+                            fiel.updatecatches()
+                            pla.updatewickets()
+                            pla.setcurrentwickets()
+                            prot.updatewickets()
+                            prot.setcurrentwickets()
+                            citu.updatewickets()
+                            citu.setcurrentwickets()
+                            agn.updatewickets()
+                            agn.setcurrentwickets()
+
+                            if i<7:
+                                play.ppupdatewickets()
+                            if i>=7 and i<16:
+                                player.midupdatewickets()
+                            if i>=16:
+                                players.deathupdatewickets()
                        
                     else:
                         if ki!="run out":
                             pla.updatewickets()
+                            pla.setcurrentwickets()
                             prot.updatewickets()
+                            prot.setcurrentwickets()
                             citu.updatewickets()
+                            citu.setcurrentwickets()
                             agn.updatewickets()
+                            agn.setcurrentwickets()
                             if i<7:
                                 play.ppupdatewickets()
                             if i>=7 and i<16:
@@ -537,69 +627,52 @@ def createprofile(request):
                                 players.deathupdatewickets()
 
             k=k+1
-        res=N.array(batlist)
-
+        res=N.array(curbatlist)
+        print("hmm")
         unique_res=N.unique(res)
 
         for some in unique_res:
             print(some)
             pin=Player.objects.get(name=some)
+            pin.setfiftiesandhundreds()
             pint=PlayerTeam.objects.get(name=some,Team=team1)
             pin.updateinnings() 
+            pint.setfiftiesandhundreds()
             pinto=AgainstTeam.objects.get(name=some,Team=team2)
             pinto.updateinnings() 
-            posb=Position.objects.get(name=some,position=dicti[some].position)
-            posb.updateinnings()
+            pinto.setfiftiesandhundreds()
+            #posb=Position.objects.get(name=some,position=dicti[some].position)
+            #posb.updateinnings()
             pint.updateinnings()
             pc=City.objects.get(name=some,City=city)
             pc.updateinnings()
-        every=Player.objects.all()
-        for i in every:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.fourw()
-            i.setfiftiesandhundreds()
-        every1=PlayerTeam.objects.all()
-        for i in every1:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        every6=AgainstTeam.objects.all()
-        for i in every6:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-            
-        every4=Position.objects.all()
-        for i in every4:
-            i.setaverage()
-            i.setsr()
-            
-        ppevery=PowerPlay.objects.all()
-        for j in ppevery:
-            j.setppeco()
-            j.setppsr()
-            j.setppaverage()
-        midevery=MiddleOvers.objects.all()
-        for j in midevery:
-            j.setmideco()
-            j.setmidsr()
-            j.setmidaverage()
-        deathevery=DeathOvers.objects.all()
-        for j in deathevery:
-            j.setdeatheco()
-            j.setdeathsr()
-            j.setdeathaverage()
+            pc.setfiftiesandhundreds()
+
+        resu=N.array(curbowllist)
+        unique_resu=N.unique(resu)
+        for some in unique_resu:
         
-        every=Player.objects.all()
-        for z in every:
-            z.currentrunszero()
-        every1=PlayerTeam.objects.all()
-        for z in every1:
-            z.currentrunszero()
+            pin=Player.objects.get(name=some)
+            pin.fourw()
+            pint=PlayerTeam.objects.get(name=some,Team=team2)
+             
+            pint.fourw()
+            pinto=AgainstTeam.objects.get(name=some,Team=team1)
+            pinto.fourw() 
+            
+            #posb=Position.objects.get(name=some,position=dicti[some].position)
+            #posb.updateinnings()
+    
+            pc=City.objects.get(name=some,City=city)
+        
+            pc.fourw()
+
+        print("___________________malli___________")
+        
+        l=0
+        curbatlist=[]
+        curbowllist=[]
+       
         
         ls=[]
         batlist=[]
@@ -619,6 +692,50 @@ def createprofile(request):
         k=0
         dicti1={}
         for i in ls:
+            b=list_cricket["innings"][1]["2nd innings"]["deliveries"][l][i]["batsman"]
+            if b not in curbatlist:
+                curbatlist.append(b)
+            m=Player.objects.filter(name=b)
+            if m:
+                mo=Player.objects.get(name=b)
+                mo.currentrunszero()
+            m=PlayerTeam.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+            m=AgainstTeam.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+            m=City.objects.filter(name=b)
+            if m:
+                for y in m:
+                    y.currentrunszero()
+
+            bo=list_cricket["innings"][1]["2nd innings"]["deliveries"][l][i]["bowler"]
+            if bo not in curbowllist:
+                curbowllist.append(bo)
+            m=Player.objects.filter(name=bo)
+            #print(m)
+            if m:
+                #print(m)
+                mp=Player.objects.get(name=bo)
+                mp.currentwicketszero()
+            m=PlayerTeam.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+            m=AgainstTeam.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+            m=City.objects.filter(name=bo)
+            if m:
+                for y in m:
+                    y.currentwicketszero()
+
+            l=l+1
+        for i in ls:
             wide=0
             legbyes=0
             
@@ -629,14 +746,14 @@ def createprofile(request):
             b=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["batsman"]
             if b not in batlist:
                 batlist.append(b)
-                posb=Position.objects.filter(name=b,position=posi)
-                if not posb:
+                #posb=Position.objects.filter(name=b,position=posi)
+               # if not posb:
                     
-                    posb=Position(name=b,position=posi)
-                    posb.save()
-                posb=Position.objects.get(name=b,position=posi)
-                dicti1[b]=posb
-                posi=posi+1
+                    #posb=Position(name=b,position=posi)
+                   # posb.save()
+                #posb=Position.objects.get(name=b,position=posi)
+                #dicti1[b]=posb
+                #posi=posi+1
             bo=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["bowler"]
             runs=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["batsman"]
             total=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["total"]
@@ -666,6 +783,21 @@ def createprofile(request):
                     pro.save()
                 play=PowerPlay.objects.get(name=pla)
                 play.ppupdateruns(runs)
+            if i>=7 and i<16:
+                profile=MiddleOvers.objects.filter(name=pla)
+                if not profile:
+                    pro=MiddleOvers(name=pla)
+                    pro.save()
+                player=MiddleOvers.objects.get(name=pla)
+                player.midupdateruns(runs)
+            if i>=16:
+                profile=DeathOvers.objects.filter(name=pla)
+                if not profile:
+                    pro=DeathOvers(name=pla)
+                    pro.save()
+                players=DeathOvers.objects.get(name=pla)
+                players.deathupdateruns(runs)
+                            
             plat=PlayerTeam.objects.filter(name=pla,Team=team2)
             at=AgainstTeam.objects.filter(name=pla,Team=team1)
             cit=City.objects.filter(name=pla, City=city)
@@ -682,7 +814,7 @@ def createprofile(request):
             prot=PlayerTeam.objects.get(name=pla,Team=team2)
             ot=AgainstTeam.objects.get(name=pla,Team=team1)
             citi=City.objects.get(name=pla, City=city)
-            posb=dicti1[b]
+            #posb=dicti1[b]
             prot.updateruns(runs)
             ot.updateruns(runs)
             prot.setcurrentruns(runs)
@@ -690,17 +822,21 @@ def createprofile(request):
             citi.setcurrentruns(runs)
             ot.setcurrentruns(runs)
             pla.updateruns(runs)
-            posb.updateruns(runs)
+            #posb.updateruns(runs)
             pla.setcurrentruns(runs)
-            posb.setcurrentruns(runs)
+            #posb.setcurrentruns(runs)
             if wide==0:
                 pla.updateballsfaced()
                 prot.updateballsfaced()
-                posb.updateballsfaced()
+                #posb.updateballsfaced()
                 citi.updateballsfaced()
                 ot.updateballsfaced()
                 if i<7:
                     play.ppupdateballsfaced()
+                if i>=7 and i<16:
+                    player.midupdateballsfaced()
+                if i>=16:
+                    players.deathupdateballsfaced()
             if runs==6:
                 pla.updatesixes()
                 prot.updatesixes()
@@ -740,12 +876,32 @@ def createprofile(request):
                     play.ppupdateballsbowled()
                 if legbyes==0:
                     play.ppupdaterunsgiven(total)
-            
+            if i>=7 and i<16:
+                profile=MiddleOvers.objects.filter(name=pla)
+                if not profile:
+                    pro=MiddleOvers(name=pla)
+                    pro.save()
+                player=MiddleOvers.objects.get(name=pla)
+                if e==0 or legbyes==1 or bye==1:
+                    player.midupdateballsbowled()
+                if legbyes==0:
+                    player.midupdaterunsgiven(total)
+            if i>=16:
+                profile=DeathOvers.objects.filter(name=pla)
+                if not profile:
+                    pro=DeathOvers(name=pla)
+                    pro.save()
+                players=DeathOvers.objects.get(name=pla)
+                if e==0 or legbyes==1 or bye==1:
+                    players.deathupdateballsbowled()
+                if legbyes==0:
+                    players.deathupdaterunsgiven(total)
             if e==0 or legbyes==1 or bye==1:
                 pla.updateballsbowled()
                 prot.updateballsbowled()
-                cite.updateballsfaced()
-                ro.updateballsfaced()
+                cite.updateballsbowled()
+                ro.updateballsbowled()
+
             if legbyes==0:
                 pla.updaterunsgiven(total)
                 prot.updaterunsgiven(total)
@@ -759,7 +915,16 @@ def createprofile(request):
                     if not outupdat :
                         outupdate = Player(name=wi)
                         outupdate.save()
+                    outupdate=Player.objects.get(name=wi)
                     outupdate.out()
+                   # posb=Position.objects.filter(name=wi,position=posi)
+                    #if not posb:
+                        
+                        #posb=Position(name=wi,position=posi)
+                        #posb.save()
+                        #posb=Position.objects.get(name=wi,position=posi)
+                        #dicti1[wi]=posb
+                        #posi=posi+1
                     outupdat = PlayerTeam.objects.filter(name=outupdate, Team=team2)
                     if not outupdat :
                         outupdate1 = PlayerTeam(name=outupdate, Team=team2)
@@ -775,19 +940,39 @@ def createprofile(request):
                         outupdate4 = AgainstTeam(name=outupdate, Team=team1)
                         outupdate4.save()
                     outupdate4=AgainstTeam.objects.get(name=outupdate,Team=team1)
-                    outupdat = Position.objects.filter(name=wi,position=dicti1[wi].position)
-                    if not outupdat :
-                        outupdate3 = Position(name=wi,position=dicti1[wi].position )
-                        outupdate3.save()
-                    outupdate3=Position.objects.get(name=wi,position=dicti1[wi].position)
+                   # outupdat = Position.objects.filter(name=wi,position=dicti1[wi].position)
+                   # if not outupdat :
+                      #  outupdate3 = Position(name=wi,position=dicti1[wi].position )
+                       # outupdate3.save()
+                   # outupdate3=Position.objects.get(name=wi,position=dicti1[wi].position)
                     outupdate2.out()
                     outupdate1.out()
-                    outupdate3.out()
+                    #outupdate3.out()
                     outupdate4.out()
                     if i<7:
                         playoutupdate=Player.objects.get(name=wi)
+                        ppoutupdate= PowerPlay.objects.filter(name=playoutupdate)
+                        if not ppoutupdate:
+                            ppoutupdate= PowerPlay(name=playoutupdate)
+                            ppoutupdate.save()
                         ppoutupdate=PowerPlay.objects.get(name=playoutupdate)
                         ppoutupdate.ppout()
+                    if i>=7 and i<16:
+                        playoutupdate=Player.objects.get(name=wi)
+                        midoutupdate= MiddleOvers.objects.filter(name=playoutupdate)
+                        if not midoutupdate:
+                            midoutupdate= MiddleOvers(name=playoutupdate)
+                            midoutupdate.save()
+                        midoutupdate=MiddleOvers.objects.get(name=playoutupdate)
+                        midoutupdate.midout()
+                    if i>=16:
+                        playoutupdate=Player.objects.get(name=wi)
+                        deathoutupdate= DeathOvers.objects.filter(name=playoutupdate)
+                        if not deathoutupdate:
+                            deathoutupdate= DeathOvers(name=playoutupdate)
+                            deathoutupdate.save()
+                        deathoutupdate=DeathOvers.objects.get(name=playoutupdate)
+                        deathoutupdate.deathout()
                     
                         
                     ki=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["kind"]
@@ -802,22 +987,39 @@ def createprofile(request):
                             profile.save()
 
                         fiel=Player.objects.get(name=c)
-                        fiel.updatecatches()
-                        pla.updatewickets()
-                        prot.updatewickets()
-                        cite.updatewickets()
-                        ro.updatewickets()
-                        if i<7:
-                            play.ppupdatewickets()
+                        if ki!="run out":
+                            fiel.updatecatches()
+                            pla.updatewickets()
+                            pla.setcurrentwickets()
+                            prot.updatewickets()
+                            prot.setcurrentwickets()
+                            cite.updatewickets()
+                            cite.setcurrentwickets()
+                            ro.updatewickets()
+                            ro.setcurrentwickets()
+                            if i<7:
+                                play.ppupdatewickets()
+                            if i>=7 and i<16:
+                                player.midupdatewickets()
+                            if i>=16:
+                                players.deathupdatewickets()
                         
                     else:
                         if ki!="run out":
                             pla.updatewickets()
+                            pla.setcurrentwickets()
                             prot.updatewickets()
+                            prot.setcurrentwickets()
                             cite.updatewickets()
+                            cite.setcurrentwickets()
                             ro.updatewickets()
+                            ro.setcurrentwickets()
                             if i<7:
                                 play.ppupdatewickets()
+                            if i>=7 and i<16:
+                                player.midupdatewickets()
+                            if i>=16:
+                                players.deathupdatewickets()
 
             k=k+1
         res=N.array(batlist)
@@ -828,47 +1030,37 @@ def createprofile(request):
             pin=Player.objects.get(name=some)
             pint=PlayerTeam.objects.get(name=some,Team=team2)
             pin.updateinnings() 
+            pin.setfiftiesandhundreds()
             pint.updateinnings()
+            pint.setfiftiesandhundreds()
             pinto=AgainstTeam.objects.get(name=some,Team=team1)
             pinto.updateinnings() 
-            posb=Position.objects.get(name=some,position=dicti1[some].position)
-            posb.updateinnings()
+            pinto.setfiftiesandhundreds()
+            #posb=Position.objects.get(name=some,position=dicti1[some].position)
+            #posb.updateinnings()
             pc=City.objects.get(name=some,City=city)
             pc.updateinnings()
-        every=Player.objects.all()
-        for i in every:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        every1=PlayerTeam.objects.all()
-        for i in every1:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        every3=City.objects.all()
-        for i in every3:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        every6=AgainstTeam.objects.all()
-        for i in every6:
-            i.seteco()
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        every4=Position.objects.all()
-        for i in every4:
-            i.setaverage()
-            i.setsr()
-            i.setfiftiesandhundreds()
-        ppevery=PowerPlay.objects.all()
-        for j in ppevery:
-            j.setppeco()
-            j.setppsr()
-            j.setppaverage()
+            pc.setfiftiesandhundreds()
+       
+
+        resu=N.array(curbowllist)
+        unique_resu=N.unique(resu)
+        for some in unique_resu:
+        
+            pin=Player.objects.get(name=some)
+            pin.fourw()
+            pint=PlayerTeam.objects.get(name=some,Team=team1)
+             
+            pint.fourw()
+            pinto=AgainstTeam.objects.get(name=some,Team=team2)
+            pinto.fourw() 
+            
+            #posb=Position.objects.get(name=some,position=dicti[some].position)
+            #posb.updateinnings()
+    
+            pc=City.objects.get(name=some,City=city)
+        
+            pc.fourw()
     return HttpResponse("updated")
 def search_players(request):
     query=request.GET.get('q1')
@@ -884,6 +1076,55 @@ def search_players(request):
 	
     return render(request, '../templates/html/playerslist.html',context={'players':results})
 
+def updatedepends(request):
+    print("yes")
+    every=Player.objects.all()
+    print("hu")
+    for i in every:
+        i.seteco()
+        i.setaverage()
+        i.setsr()
+
+            #i.setfiftiesandhundreds()
+    every1=PlayerTeam.objects.all()
+    for i in every1:
+        i.seteco()
+        i.setaverage()
+        i.setsr()
+            #i.setfiftiesandhundreds()
+    every6=AgainstTeam.objects.all()
+    for i in every6:
+        i.seteco()
+        i.setaverage()
+        i.setsr()
+    every7=City.objects.all()
+    for i in every7:
+        i.seteco()
+        i.setaverage()
+        i.setsr()
+           # i.setfiftiesandhundreds()
+            
+        #every4=Position.objects.all()
+        #for i in every4:
+            #i.setaverage()
+            #i.setsr()
+            
+    ppevery=PowerPlay.objects.all()
+    for j in ppevery:
+        j.setppeco()
+        j.setppsr()
+        j.setppaverage()
+    midevery=MiddleOvers.objects.all()
+    for j in midevery:
+        j.setmideco()
+        j.setmidsr()
+        j.setmidaverage()
+    deathevery=DeathOvers.objects.all()
+    for j in deathevery:
+        j.setdeatheco()
+        j.setdeathsr()
+        j.setdeathaverage()
+    return HttpResponse("done")
 
 def matchuprecords(request):
     all=glob.glob("./stats/*.yaml")

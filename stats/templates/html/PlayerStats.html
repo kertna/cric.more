@@ -1,17 +1,160 @@
 {% extends "html/base.html" %}
 {% load static %}
 {% block content %}
-<div class="section-2">
-        <div class="w-container">
-            <div class="w-layout-grid">
-                <div>
-                    <a href="{% url 'playerProfile' %}">Virat Kohli </a>
-                    <a href="#">Text Link</a>
-                    <a href="#">Text Link</a>
-                </div>
+<link href="../static/assets/css/playerstats.css" rel="stylesheet">
+<!-- ======= Portfolio Section ======= -->
 
+    <div id="portfolio" class="portfolio-area area-padding fix">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Players</h2>
             </div>
+          </div>
         </div>
-</div>
+
+
+        <div class="row awesome-project-content portfolio-container">
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-app portfolio-item">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Virat-Kohli.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                    
+                      <a href="{% url 'playerProfile' 'V Kohli' %}"><h4>Virat Kohli</h4></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Jonny-Bairstow.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                      <h4>Jonny-Bairstow</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-card">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Trent-Boult.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                      <h4>Trent-Boult</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Chris-Lynn.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                      <h4>Chris-Lynn</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-app">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Ishan-Kishan.jpg" alt="" /></a>
+                <div class="add-actions text-center text-center">
+                  <div class="project-dec">
+                      <h4>Ishan-Kishan</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+          <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/KL-Rahul.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                      <h4>KL-Rahul</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+                    <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Riyan-Parag.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                      <h4>Riyan-Parag</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+                    <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/T-Natarajan.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                   <h4>T-Natarajan</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+                    <!-- portfolio-item start -->
+          <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item filter-web">
+            <div class="single-awesome-project">
+              <div class="awesome-img">
+                <a href="#"><img src="../static/assets/img/portfolio/Shimron-Hetmyer.jpg" alt="" /></a>
+                <div class="add-actions text-center">
+                  <div class="project-dec">
+                  <h4>Shimron-Hetmyer</h4>
+    <!--               <a class="portfolio-lightbox" data-gallery="myGallery" href="../static/assets/img/portfolio/Shimron-Hetmyer.jpg">
+                    </a>--> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- portfolio-item end -->
+
+        </div>
+      </div>
+    </div><!-- End Portfolio Section -->
+
 
 {% endblock content %}

@@ -152,13 +152,13 @@ body {
     <div class="card">
    
       <h3 style="color: black;">OTHERS</h3>
-      <b></b><a href="default.asp" target="_blank">Statistics for each Team played</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics in City</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics at Position</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics in Powerplay</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics in MiddleOvers</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics in DeathOvers</a></b><br>
-        <b><a href="default.asp" target="_blank">Statistics against Team</a></b><br>
+      <a href="{% url 'teamlist' id=player.name %}" target="_self" >Statistics for each Team played</a>
+ <a href="{% url 'cl' id=player.name %}" target="_self">Statistics in City</a>
+ <a href="{% url 'pp' id=player.name %}" target="_self">Statistics at Position</a>
+ <a href="{% url 'pp' id=player.name %}" target="_self">Statistics in Powerplay</a>
+ <a href="{% url 'mo' id=player.name %}" target="_self">Statistics in MiddleOvers</a>
+ <a href="{% url 'do' id=player.name %}" target="_self">Statistics in DeathOvers</a>
+ <a href="{% url 'al' id=player.name %}" target="_self">Statistics against Team</a>
    </div>
   </div>
   

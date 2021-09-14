@@ -1,0 +1,111 @@
+
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/style-profile.css' %}">
+    <link href="../static/assets/css/x.css" rel="stylesheet">
+    <body>
+    <div class="ki">
+
+
+        <div class="columns w-row">
+
+            <div class="column w-col w-col-9">
+                <br>
+                <h1 class="heading" style="border-left: 6px solid blue;
+                    background-color: lightblue;padding: 5px;">{{ player.name }}<br></h1>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <h3 style="color: black;">Batting</h3>
+                    <div class="columns-1 w-row">
+                        <div class="column-1 w-col w-col-6">
+                            <br>
+                            <div>Innings</div>
+                            <div>Runs</div>
+                            <div>Average</div>
+                            <div>Strike rate</div>
+
+                            <div>4's</div>
+                            <div>6's</div>
+                            <div>50's</div>
+                            <div>100's</div>
+                        </div>
+                        <div class="column-2 w-col w-col-6">
+                            <br>
+                            <div>{{ player.innings }}</div>
+                            <div>{{ player.runs }}</div>
+                            <div>{{ player.average }}</div>
+                            <div>{{ player.strikerate }}</div>
+
+                            <div>{{ player.fours }}</div>
+                            <div>{{ player.sixes }}</div>
+                            <div>{{ player.fifties }}</div>
+                            <div>{{ player.hundreds }}</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <h3 style="color: black;">Bowling & Fielding</h3>
+                    <div class="columns-2 w-row">
+                        <div class="column-3 w-col w-col-6">
+
+                            <br>
+                            <div>Overs Bowled</div>
+                            <div>Wickets</div>
+                            <div>Bowling Average</div>
+                            <div>Bowling Strike Rate</div>
+                            <div>Economy</div>
+                            <div>Three wicket hauls</div>
+                            <div>Five wicket hauls</div>
+                            <div>Catches</div>
+
+                        </div>
+                        <div class="column-4 w-col w-col-6">
+                            <br>
+                            <div>{{ player.oversbowled }}</div>
+                            <div>{{ player.wickets }}</div>
+                            <div>{{ player.bowlavg }}</div>
+                            <div>{{ player.bowlsr }}</div>
+                            <div>{{ player.economy }}</div>
+                            <div>{{ player.threehaul }}</div>
+                            <div>{{ player.fivehaul }}</div>
+                            <div>{{ player.catches }}</div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="column">
+                <div class="card">
+
+                    <h3 style="color: black;">OTHERS</h3>
+                    <b></b><a href="{% url 'teamlist' id=player.name %}" target="_blank">Statistics for each Team
+                    played</a></b><br>
+                    <b><a href="{% url 'cl' id=player.name %}" target="_blank">Statistics in City</a></b><br>
+                    <b><a href="{% url 'pp' id=player.name %}" target="_blank">Statistics at Position</a></b><br>
+                    <b><a href="{% url 'pp' id=player.name %}" target="_blank">Statistics in Powerplay</a></b><br>
+                    <b><a href="{% url 'mo' id=player.name %}" target="_blank">Statistics in MiddleOvers</a></b><br>
+                    <b><a href="{% url 'do' id=player.name %}" target="_blank">Statistics in DeathOvers</a></b><br>
+                    <b><a href="{% url 'al' id=player.name %}" target="_blank">Statistics against Team</a></b><br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </body>
+
+{% endblock content %}

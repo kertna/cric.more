@@ -25,7 +25,7 @@ class Player(models.Model):
     innings=models.IntegerField(default=0)
     threehaul=models.IntegerField(default=0)
     fivehaul=models.IntegerField(default=0)
-    
+    currentwickets=models.IntegerField(default=0)
     def updateruns(self, runs):
         self.runs=self.runs+runs
         self.save()
@@ -94,11 +94,17 @@ class Player(models.Model):
     def updateinnings(self):
         self.innings=self.innings+1
         self.save()
+    def currentwicketszero(self):
+        self.currentwickets=0
+        self.save()
+    def setcurrentwickets(self):
+        self.currentwickets=self.currentwickets+1
+        self.save()
     def fourw(self):
-        if self.wickets>=3 and self.wickets<5:
+        if self.currentwickets>=3 and self.currentwickets<5:
             self.threehaul=self.threehaul+1
             self.save()
-        if self.wickets>=5:
+        if self.currentwickets>=5:
             self.fivehaul=self.fivehaul+1
             self.save()
 class PlayerTeam(models.Model):
@@ -123,6 +129,16 @@ class PlayerTeam(models.Model):
     outs=models.IntegerField(default=0)
     average=models.FloatField(default=None)
     innings=models.IntegerField(default=0)
+    currentwickets=models.IntegerField(default=0)
+    threehaul=models.IntegerField(default=0)
+    fivehaul=models.IntegerField(default=0)
+    def fourw(self):
+        if self.currentwickets>=3 and self.currentwickets<5:
+            self.threehaul=self.threehaul+1
+            self.save()
+        if self.currentwickets>=5:
+            self.fivehaul=self.fivehaul+1
+            self.save()
     def __str__(self):
         return self.name.name+" "+self.Team
     def updateruns(self, runs):
@@ -177,6 +193,12 @@ class PlayerTeam(models.Model):
     def currentrunszero(self):
         self.currentruns=0
         self.save()
+    def currentwicketszero(self):
+        self.currentwickets=0
+        self.save()
+    def setcurrentwickets(self):
+        self.currentwickets=self.currentwickets+1
+        self.save()
     def setcurrentruns(self,runs):
         self.currentruns=self.currentruns+runs
         self.save()
@@ -193,6 +215,7 @@ class PlayerTeam(models.Model):
     def updateinnings(self):
         self.innings=self.innings+1
         self.save()
+
 class AgainstTeam(models.Model):
     name =models.ForeignKey(Player,  on_delete=models.CASCADE)
     Team = models.CharField(max_length=250)
@@ -215,6 +238,17 @@ class AgainstTeam(models.Model):
     outs=models.IntegerField(default=0)
     average=models.FloatField(default=None)
     innings=models.IntegerField(default=0)
+    #currentwickets=models.IntegerField(default=0)
+    cwicks=models.IntegerField(default=0)
+    threehaul=models.IntegerField(default=0)
+    fivehaul=models.IntegerField(default=0)
+    def fourw(self):
+        if self.currentwickets>=3 and self.currentwickets<5:
+            self.threehaul=self.threehaul+1
+            self.save()
+        if self.currentwickets>=5:
+            self.fivehaul=self.fivehaul+1
+            self.save()
     def __str__(self):
         return self.name.name+" "+self.Team
     def updateruns(self, runs):
@@ -269,8 +303,14 @@ class AgainstTeam(models.Model):
     def currentrunszero(self):
         self.currentruns=0
         self.save()
+    def currentwicketszero(self):
+        self.cwicks=0
+        self.save()
     def setcurrentruns(self,runs):
         self.currentruns=self.currentruns+runs
+        self.save()
+    def setcurrentwickets(self):
+        self.cwicks=self.cwicks+1
         self.save()
     def out(self):
         self.outs=self.outs+1
@@ -285,6 +325,13 @@ class AgainstTeam(models.Model):
     def updateinnings(self):
         self.innings=self.innings+1
         self.save()
+    def fourw(self):
+        if self.cwicks>=3 and self.cwicks<5:
+            self.threehaul=self.threehaul+1
+            self.save()
+        if self.cwicks>=5:
+            self.fivehaul=self.fivehaul+1
+            self.save()
 	
 class PowerPlay(models.Model):
     name = models.ForeignKey(Player,  on_delete=models.CASCADE)
@@ -481,6 +528,7 @@ class Matchups(models.Model):
     average=models.FloatField(default=0)
     bowlavg=models.FloatField(default=0)
     bowlsr=models.FloatField(default=0)
+
     def setaverage(self, runs):
         if self.outs==0:
             pass
@@ -556,7 +604,8 @@ class City(models.Model):
     innings=models.IntegerField(default=0)
     threehaul=models.IntegerField(default=0)
     fivehaul=models.IntegerField(default=0)
-    
+    currentwickets=models.IntegerField(default=0)
+
     def updateruns(self, runs):
         self.runs=self.runs+runs
         self.save()
@@ -599,6 +648,19 @@ class City(models.Model):
             self.save()
         elif self.currentruns>=50:
             self.fifties=self.fifties+1
+            self.save()
+    def currentwicketszero(self):
+        self.currentwickets=0
+        self.save()
+    def setcurrentwickets(self):
+        self.currentwickets=self.currentwickets+1
+        self.save()
+    def fourw(self):
+        if self.currentwickets>=3 and self.currentwickets<5:
+            self.threehaul=self.threehaul+1
+            self.save()
+        if self.currentwickets>=5:
+            self.fivehaul=self.fivehaul+1
             self.save()
     def currentrunszero(self):
         self.currentruns=0

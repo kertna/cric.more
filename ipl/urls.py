@@ -20,6 +20,7 @@ from stats import views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('update/',views.createprofile,name="c"),
+    path('updatedep/',views.updatedepends,name="s"),
     path('matchups/',views.matchuprecords, name='matchup'),
     path('',views.home, name='home'),
     path('filterruns/',views.filterruns, name='filterruns'),

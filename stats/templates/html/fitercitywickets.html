@@ -1,89 +1,7 @@
+{% extends "html/base.html" %}
 {% load static %}
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/skel.min.js' %}"></script>
-    <script src="{% static 'js/skel-layers.min.js' %}"></script>
-    <script src="{% static 'js/init.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/skel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style-xlarge.css' %}">
-<!------ Include the above in your HEAD tag ---------->
-
-<!DOCTYPE html>
-<html lang="">
-  <head>
-      <style>
-          .ki{
-            background-image: url("{% static 'images/d2.jpg' %}");
-  background-repeat: repeat;
-  
-          }
-          .single {
-              width: 1000px;
-padding: 30px 15px;
-margin-top: 40px;
-background: #fcfcfc;
-border: 1px solid #f0f0f0; }
-.single h3.side-title {
-margin: 0;
-margin-bottom: 10px;
-padding: 0;
-font-size: 30px;
-color: #333;
-text-transform: uppercase; }
-.single h3.side-title:after {
-content: '';
-width: 60px;
-height: 1px;
-background: #ff173c;
-display: block;
-margin-top: 6px; }
-
-.single ul {
-margin-bottom: 0; }
-.single li a {
-color: #666;
-font-size: 17px;
-text-transform: uppercase;
-border-bottom: 1px solid #f0f0f0;
-line-height: 40px;
-display: block;
-text-decoration: none; }
-.single li a:hover {
-color: #ff173c; }
-.single li:last-child a {
-border-bottom: 0; }
-      </style>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>
-</head>
-<header id="header" class="skel-layers-fixed">
-    <h1><a href="{% url 'home' %}">CricMore</a></h1>
-    
-   
-    <nav id="nav">
-        <ul>
-            <li>
-                
-
-                    <form method="GET" action="{% url 'search_player' %}" >
-                       
-                       
-                         <input type="text" name="q1" value="{{request.GET.q1}}"   placeholder="Search Players..." style="background-color: transparent;">
-                      
-                     </form>
-                  
-            </li>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'm' %}">Matchups</a></li>
-            <li><a href="{% url 'filter' %}">Filters</a></li>
-        </ul>
-    </nav>
-</header>
+{% block content %}
+<link href="../static/assets/css/filter.css" rel="stylesheet">
 <body class=ki>
     <div class="container">
 <div class="row">
@@ -93,7 +11,7 @@ border-bottom: 0; }
 		<h3 class="side-title">MOST WICKETS IN A GROUND</h3>
 		<ul class="list-unstyled">
             {% for post in player %}
-            <li><a href="{% url 'playerProfile' post.name %}" title="">{{post.name.name}} ({{post.City}})<span class="pull-right">{{post.wickets}}</span></a></li>
+            <li><a href="{% url 'playerProfile' post.name %}" title="">{{post.name.name}} ({{post.City}})<span style="float: right;">{{post.wickets}}</span></a></li>
 
 {% endfor%}
 			
@@ -104,4 +22,4 @@ border-bottom: 0; }
 </div>
 </div>
 </body>
-</html>
+{%endblock%}

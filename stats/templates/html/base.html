@@ -1,97 +1,148 @@
 {% load static %}
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>cricMore</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
-    <!--[if lte IE 8]>
-    <script src="{% static 'js/html5shiv.js' %}"></script><![endif]-->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/skel.min.js' %}"></script>
-    <script src="{% static 'js/skel-layers.min.js' %}"></script>
-    <script src="{% static 'js/init.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/skel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style-xlarge.css' %}">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>CricMore</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  
+  <link href="../static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/assets/css/style.css" rel="stylesheet">
+
 </head>
-<body id="top">
-<!-- Header -->
-<header id="header" class="skel-layers-fixed">
-    <h1><a href="#">CricMore</a></h1>
-    
-   
-    <nav id="nav">
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-between">
+
+      <div class="logo">
+        <h1><a href="index.html"><span>Cric</span>More</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
         <ul>
-            <li>
-                
-
-                    <form method="GET" action="{% url 'search_player' %}" >
-                       
-                       
-                         <input type="text" name="q1" value="{{request.GET.q1}}"   placeholder="Search Players..." style="background-color: transparent;">
-                      
-                     </form>
-                  
-            </li>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'm' %}">Matchups</a></li>
-            <li><a href="{% url 'filter' %}">Filters</a></li>
-            
+          <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'Fantasy' %}">Fantasy</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'filter' %}">Filters</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'PlayerStats' %}">Stats</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'm' %}">Matchups</a></li>
+          <li class="dropdown"><a href="#team"><span>Team</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Chennai Super Kings</a></li>
+              <li><a href="#">Sunrisers Hyderabad</a></li>
+              <li><a href="#">Royal Challengers Bangalore</a></li>
+              <li><a href="#">Mumbai Indians</a></li>
+              <li><a href="#">Kolkata Knight Riders</a></li>
+              <li><a href="#">Punjab Kings</a></li>
+              <li><a href="#">Delhi Capitals</a></li>
+              <li><a href="#">Rajasthan Royals</a></li>
+            </ul>
+          </li>
+          <li>
+          <form method="GET" action="{% url 'search_player' %}" >
+          <input type="text" name="q1" value="{{request.GET.q1}}"   placeholder="Search Players..." style="margin-left:25px" "margin-top:15px" >
+          </form>
+          </li>
         </ul>
-    </nav>
-</header>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
 
-{% if messages %}
-   {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
-{% block content %}{% endblock %}
+    </div>
+  </header><!-- End Header -->
+  {% block content %}{% endblock %}
 
-<!-- Footer -->
-<br>
-<footer id="footer">
-    <div class="container">
-        <div class="row double">
-            <div class="6u">
-                <div class="row collapse-at-2">
-                    <div class="6u">
-                        <h3>Cricket</h3>
-                        <ul class="alt">
-                            <li><a href="{% url 'Fantasy' %}">Fantasy Cricket</a></li>
-                            <li><a href="{% url 'PlayerStats' %}">Player Statistics</a></li>
-                            <li><a href="{% url 'home' %}">Home</a></li>
-                        </ul>
-                    </div>
-                    <div class="6u">
-                        <h3>Company</h3>
-                        <ul class="alt">
-                            <li><a href="{% url 'About' %}">About Us</a></li>
-                            <li><a href="{% url 'Contact' %}">Contact Us</a></li>
-                            <li><a href="{% url 'Disclaimer' %}">Disclaimer</a></li>
-                        </ul>
-                    </div>
+  <!-- ======= Footer ======= -->
+  <footer>
+    <div class="footer-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="footer-content">
+              <div class="footer-head">
+                <div class="footer-logo">
+                  <h2><span>Cric</span>More</h2>
                 </div>
+
+                <p>CricMore is your go-to cricket fantasy supply. We’ve stayed ahead of counterparts with in-depth analysis.</p>
+              </div>
             </div>
-            <div class="6u" >
-                <h2>CricMore</h2>
-                <p>We Predict,
-                    They Perform
-                    <br>
-                    You WIN</p>
-                <ul class="icons">
-                    <h3>Social</h3>
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                    <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
-                </ul>
+          </div>
+          <!-- end single footer -->
+          <div class="col-md-4">
+            <div class="footer-content">
+              <div class="footer-head">
+                <p>
+                  We Predict, They Perform You WIN
+                </p>
+                <div class="footer-icons">
+                  <ul>
+                    <li>
+                      <a href="#"><i class="bi bi-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="bi bi-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="bi bi-instagram"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-</footer>
+          </div>
+          <!-- end single footer -->
+          <div class="col-md-2">
+            <div class="footer-content">
+              <div class="footer-head">
+                <li><a href="{% url 'About' %}">About</a></li>
+                <li><a href="{% url 'Contact' %}">Contact</a></li>
+                <li><a href="{% url 'Disclaimer' %}">Disclamer</a></li>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/assets/js/main.js"></script>
+
 </body>
+
 </html>

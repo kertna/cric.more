@@ -1,150 +1,73 @@
 {% extends "html/base.html" %}
 {% load static %}
 {% block content %}
-
-    <link rel="stylesheet" href="{% static 'css/style-profile.css' %}">
-    <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-image: url("{% static 'images/d2.jpg' %}");
-  background-repeat: no-repeat;
-  background-size: 2000px 900px;
-}
-.ki
-{
-
-}
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 33%;
-  padding: 0 10px;
-  
-  margin-left:125px;
-
-  
- 
-}
-
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;background-image: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fcricket%2Bground&psig=AOvVaw36WGQLrCaY_DK__Cug8K62&ust=1620569357827000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC7sMShuvACFQAAAAAdAAAAABAX;}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
-/* Style the counter cards */
-.card {
-  
-  padding: 16px;
-  text-align: center;
-  background-color: #f1f1f1;
-  margin-bottom: 20px;
-}
-
-</style>
-</head>
-<body>
-  <div class="ki">
-   
-       
-            <div class="columns w-row">
-                
-                <div class="column w-col w-col-9">
-                    <br>
-                    <h1 class="heading" style ="border-left: 6px solid blue;
-                    background-color: lightblue;padding: 5px;">{{player.name}}</h1>
-                    
+    <link href="../static/assets/css/pp.css" rel="stylesheet">
+    <body class="ki">
+    <div class="shapedividers_com-1926">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <!-- Category -->
+                    <div class="single category">
+                        <h3 class="side-title" style="border-left: 6px solid blue;
+                    background-color: lightblue;padding: 5px;">{{ player.name.name }}</h3>
+                    </div>
                 </div>
             </div>
+
+ <div class="section wf-section">
+ <div class="w-layout-grid grid-3">
+ <h3>Batting</h3>
+ <h3>Bowling </h3>
+ </div>
+ </div>
+ <div class="w-layout-grid grid">
+ <div id="w-node-_062f8329-fb73-e41f-a99c-5c7136961729-be2bc540" class="row row-1">
+ <div class="col col-8">
+ <h4>
     
+                            <div>Runs</div>
+                            <div>Average</div>
+                            <div>Strike rate</div>
 
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <h3 style="color: black;">BATTING</h3>
-      <div class="columns-1 w-row">
-        <div class="column-1 w-col w-col-6">
-            <br>
-            <div>Runs</div>
-            <div>Average</div>
-            <div>Strike rate</div>
-        </div>
-        <div class="column-2 w-col w-col-6">
-            <br>
-            <div>{{player.midruns}}</div>
-            <div>{{player.midaverage}}</div>
-            <div>{{player.midstrikerate}}</div>
-           
-            
-        
-        </div>
-    </div>
-    </div>
-  </div>
+                            </h4>
+ </div>
+ <div class="col col-4">
+ <h4>
+                            <div>{{ player.midruns }}</div>
+                            <div>{{ player.midaverage }}</div>
+                            <div>{{ player.midstrikerate }}</div>
 
-  <div class="column">
-    <div class="card">
-      <h3 style="color: black;">BOWNLING</h3>
-      <div class="columns-2 w-row">
-        <div class="column-3 w-col w-col-6">
-            
-            <br>
-            <div>Overs Bowled</div>
-            <div>Wickets</div>
-            <div>Bowling Average</div>
-            <div>Bowling Strike Rate</div>
-            <div>Economy</div>
-           <br>
-           <br>
-           <br>
-        
-        </div>
-        <div class="column-4 w-col w-col-6">
-            <br>
-            <div>{{player.midoversbowled}}</div>
-            <div>{{player.midwickets}}</div>
-            <div>{{player.midbowlavg}}</div>
-            <div>{{player.midbowlsr}}</div>
-            <div>{{player.mideconomy}}</div>
-            <br>
-            <br>
-            <br>
-           
 
-        </div>
+                            </h4>
 
-    </div>
-    </div>
-  </div>
-  
-  
-  
-  
-</div>
-</div>
-</body>
-</html>
+ </div>
+ </div>
+ <div class="row row-2">
+ <div class="col col-8">
+ <h4>
+                             <div>Overs Bowled</div>
+                            <div>Wickets</div>
+                            <div>Bowling Average</div>
+                            <div>Bowling Strike Rate</div>
+                            <div>Economy</div>
 
-    
-{% endblock content %}
+                            </h4>
+ </div>
+ <div class="col col-4">
+ <h4>
+                             <div>{{ player.midoversbowled }}</div>
+                            <div>{{ player.midwickets }}</div>
+                            <div>{{ player.midbowlavg }}</div>
+                            <div>{{ player.midbowlsr }}</div>
+                            <div>{{ player.mideconomy }}</div>
+
+                            </h4>
+ </div>
+ </div>
+ </div>
+
+
+ </div>
+ </body>
+ {% endblock %}

@@ -1,170 +1,117 @@
+{% extends "html/base.html" %}
 {% load static %}
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/skel.min.js' %}"></script>
-    <script src="{% static 'js/skel-layers.min.js' %}"></script>
-    <script src="{% static 'js/init.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/skel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style-xlarge.css' %}">
+{% block content %}
+    <link href="../static/assets/css/filter.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
 
+        th, td {
+            text-align: center;
+            padding: 16px;
+        }
 
- <!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
-}
+        th:first-child, td:first-child {
+            text-align: left;
+        }
 
-th, td {
-  text-align: center;
-  padding: 16px;
-}
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
 
-th:first-child, td:first-child {
-  text-align: left;
-}
+        .fa-check {
+            color: green;
+        }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2
-}
+        .fa-remove {
+            color: red;
+        }
+    </style>
+    <body>
 
-.fa-check {
-  color: green;
-}
+    <h2 style="margin: 10px;">{{ posts.name }} vs {{ post.name }}</h2>
 
-.fa-remove {
-  color: red;
-}
-</style>
-</head>
-<body>
+    <table>
 
-<h2 style="margin: 10px;">{{posts.name}} vs {{post.name}}</h2>
+        <tr>
+            <td>INNINGS</td>
+            <td>{{ posts.innings }}</td>
+            <td>{{ post.innings }}</td>
+        </tr>
+        <tr>
+            <td>RUNS SCORED</td>
+            <td>{{ posts.runs }}</td>
+            <td>{{ post.runs }}</td>
+        </tr>
+        <tr>
+            <td>AVERAGE</td>
+            <td>{{ posts.average }}</td>
+            <td>{{ post.average }}</td>
+        </tr>
+        <tr>
+            <td>STRIKE-RATE</td>
+            <td>{{ posts.strikerate }}</td>
+            <td>{{ post.strikerate }}</td>
+        </tr>
+        <tr>
+            <td>FOURS</td>
+            <td>{{ posts.fours }}</td>
+            <td>{{ post.fours }}</td>
+        </tr>
+        <tr>
+            <td>SIXES</td>
+            <td>{{ posts.sixes }}</td>
+            <td>{{ post.sixes }}</td>
+        </tr>
+        <tr>
+            <td>FIFTIES</td>
+            <td>{{ posts.fifties }}</td>
+            <td>{{ post.fifties }}</td>
+        </tr>
+        <tr>
+            <td>HUNDREDS</td>
+            <td>{{ posts.hundreds }}</i></td>
+            <td>{{ post.hundreds }}</td>
+        </tr>
+        <tr>
+            <td>OVERS BOWLED</td>
+            <td>{{ posts.oversbowled }}</td>
+            <td>{{ post.oversbowled }}</td>
+        </tr>
+        <tr>
+            <td>WICKETS</td>
+            <td>{{ posts.wickets }}</td>
+            <td>{{ post.wickets }}</td>
+        </tr>
+        <tr>
+            <td>ECONOMY</td>
+            <td>{{ posts.economy }}</td>
+            <td>{{ post.economy }}</td>
+        </tr>
+        <tr>
+            <td>BOWLING AVERAGE</td>
+            <td>{{ posts.bowlavg }}</td>
+            <td>{{ post.bowlavg }}</td>
+        </tr>
+        <tr>
+            <td>BOWLING STRIKE-RATE</td>
+            <td>{{ posts.bowlsr }}</td>
+            <td>{{ post.bowlsr }}</td>
+        </tr>
+        <tr>
+            <td>3W HAULS</td>
+            <td>{{ posts.threehaul }}</td>
+            <td>{{ post.threehaul }}</td>
+        </tr>
+    </table>
 
-<table>
- 
-  <tr>
-    <td>INNINGS</td>
-    <td>{{posts.innings}}</td>
-    <td>{{post.innings}}</td>
-  </tr>
-  <tr>
-    <td>RUNS SCORED</td>
-    <td>{{posts.runs}}</td>
-    <td>{{post.runs}}</td>
-  </tr>
-  <tr>
-    <td>AVERAGE</td>
-    <td>{{posts.average}}</td>
-    <td>{{post.average}}</td>
-  </tr>
-  <tr>
-    <td>STRIKE-RATE</td>
-    <td>{{posts.strikerate}}</td>
-    <td>{{post.strikerate}}</td>
-  </tr>
-  <tr>
-    <td>FOURS</td>
-    <td>{{posts.fours}}</td>
-    <td>{{post.fours}}</td>
-  </tr>
-  <tr>
-    <td>SIXES</td>
-    <td>{{posts.sixes}}</td>
-    <td>{{post.sixes}}</td>
-  </tr>
-  <tr>
-    <td>FIFTIES</td>
-    <td>{{posts.fifties}}</td>
-    <td>{{post.fifties}}</td>
-  </tr>
-  <tr>
-    <td>HUNDREDS</td>
-    <td>{{posts.hundreds}}</i></td>
-    <td>{{post.hundreds}}</td>
-  </tr>
-  <tr>
-    <td>OVERS BOWLED</td>
-    <td>{{posts.oversbowled}}</td>
-    <td>{{post.oversbowled}}</td>
-  </tr>
-  <tr>
-    <td>WICKETS</td>
-    <td>{{posts.wickets}}</td>
-    <td>{{post.wickets}}</td>
-  </tr>
-  <tr>
-    <td>ECONOMY</td>
-    <td>{{posts.economy}}</td>
-    <td>{{post.economy}}</td>
-  </tr>
-  <tr>
-    <td>BOWLING AVERAGE</td>
-    <td>{{posts.bowlavg}}</td>
-    <td>{{post.bowlavg}}</td>
-  </tr>
-  <tr>
-    <td>BOWLING STRIKE-RATE</td>
-    <td>{{posts.bowlsr}}</td>
-    <td>{{post.bowlsr}}</td>
-  </tr>
-  <tr>
-    <td>3W HAULS</td>
-    <td>{{posts.threehaul}}</td>
-    <td>{{post.threehaul}}</td>
-  </tr>
-</table>
-
-</body>
-</html>
-<br>
-<footer id="footer">
-    <div class="container">
-        <div class="row double">
-            <div class="6u">
-                <div class="row collapse-at-2">
-                    <div class="6u">
-                        <h3>Cricket</h3>
-                        <ul class="alt">
-                            <li><a href="{% url 'Fantasy' %}">Fantasy Cricket</a></li>
-                            <li><a href="{% url 'PlayerStats' %}">Player Statistics</a></li>
-                            <li><a href="{% url 'home' %}">Home</a></li>
-                        </ul>
-                    </div>
-                    <div class="6u">
-                        <h3>Company</h3>
-                        <ul class="alt">
-                            <li><a href="{% url 'About' %}">About Us</a></li>
-                            <li><a href="{% url 'Contact' %}">Contact Us</a></li>
-                            <li><a href="{% url 'Disclaimer' %}">Disclaimer</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="6u" >
-                <h2>CricMore</h2>
-                <p>We Predict,
-                    They Perform
-                    <br>
-                    You WIN</p>
-                <ul class="icons">
-                    <h3>Social</h3>
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                    <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
-                </ul>
-            </div>
-</footer>
-</body>
-</html>
+    </body>
+{% endblock %}

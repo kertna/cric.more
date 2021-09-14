@@ -1,11 +1,28 @@
 {% extends "html/base.html" %}
 {% load static %}
 {% block content %}
-<h2>TEAMS </h2>
-{% for post in player %}
-
-<a href="{% url 'playerProfile2' id=post.id %}"><h3>{{post.City}}</h3></a>
+    <link href="../static/assets/css/filter.css" rel="stylesheet">
+    <body class=ki>
+    <div class="container">
+<div class="row">
+<div class="col-sm-4">
+	<!-- Category -->
+	<div class="single category">
+		<h3 class="side-title">CITIES</h3>
+		<ul class="list-unstyled">
+            {% for post in player %}
+            <li><a href="{% url 'playerProfile2' id=post.name.name %}">{{post.City}}</a></li>
 
 {% endfor%}
+			
+		
+		</ul>
+   </div>
+</div> 
+</div>
+</div>
+</body>
+
+
 
 {% endblock content %}
