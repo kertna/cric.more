@@ -1172,6 +1172,10 @@ def matchuprecords(request):
                         legbyes=1
                     if "byes" in var.keys():
                         bye=1
+                pla= Player.objects.filter(name=b)
+                if not pla:
+                    pla=Player(name=b)
+                    pla.save()
                 pla=Player.objects.get(name=b)
                 mat=Matchups.objects.filter(name=pla,bowler=bo)
                 if not mat:
@@ -1181,7 +1185,10 @@ def matchuprecords(request):
                 mat.updateruns(runs)
                 if wide==0:
                     mat.updateballsfaced()
-
+                play= Player.objects.filter(name=bo)
+                if not play:
+                    play=Player(name=bo)
+                    play.save()
                 play=Player.objects.get(name=bo)
                 mats=Matchups.objects.filter(name=play,bowler=b)
                 if not mats:
@@ -1205,7 +1212,7 @@ def matchuprecords(request):
 
                     outupdates= Matchups.objects.filter(name=wi,bowler=bo)
                     if not outupdates:
-                        outupdate1=Matchups(name=wi,bowler=bo)
+                        outupdate1=Matchups(name=outupdate,bowler=bo)
                         outupdate1.save()
                     outupdate1=Matchups.objects.get(name=wi,bowler=bo)
                   
@@ -1233,7 +1240,7 @@ def matchuprecords(request):
             ls1=[]
             for x in list_cricket["innings"][1]["2nd innings"]["deliveries"]:
                 k=[key for key,value in x.items()]
-                print(k[0])
+                
                 ls1.append(k[0])
             k=0
             for i in ls1:
@@ -1247,6 +1254,10 @@ def matchuprecords(request):
                 bo=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["bowler"]
                 runs=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["batsman"]
                 total=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["total"]
+                pla= Player.objects.filter(name=b)
+                if not pla:
+                    pla=Player(name=b)
+                    pla.save()
                 pla=Player.objects.get(name=b)
                 mat=Matchups.objects.filter(name=pla,bowler=bo)
                 if not mat:
@@ -1256,7 +1267,10 @@ def matchuprecords(request):
                 mat.updateruns(runs)
                 if wide==0:
                     mat.updateballsfaced()
-
+                play= Player.objects.filter(name=bo)
+                if not play:
+                    play=Player(name=bo)
+                    play.save()
                 play=Player.objects.get(name=bo)
                 mats=Matchups.objects.filter(name=play,bowler=b)
                 if not mats:
