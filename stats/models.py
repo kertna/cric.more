@@ -746,4 +746,138 @@ class Position(models.Model):
     def updateinnings(self):
         self.innings=self.innings+1
         self.save()
+
+
+class Form(models.Model):
+    name=models.ForeignKey(Player,  on_delete=models.CASCADE)
+    currentform= models.FloatField(default=0)
+    i=models.IntegerField(default=1)
+    currentruns=models.IntegerField(default=0)
+    currentballsfaced=models.IntegerField(default=0)
+    currentwickets=models.IntegerField(default=0)
+    currentrunsgiven=models.IntegerField(default=0)
+    currentballsbowled=models.IntegerField(default=0)
+    currentcatches=models.IntegerField(default=0)
+
+    runs1=models.FloatField(default=0)
+    runs2=models.FloatField(default=0)
+    runs3=models.FloatField(default=0)
+    runs4=models.FloatField(default=0)
+    runs5=models.FloatField(default=0)
+
+    sr1=models.FloatField(default=0)
+    sr2=models.FloatField(default=0)
+    sr3=models.FloatField(default=0)
+    sr4=models.FloatField(default=0)
+    sr5=models.FloatField(default=0)
+
+    wicket1=models.FloatField(default=0)
+    wicket2=models.FloatField(default=0)
+    wicket3=models.FloatField(default=0)
+    wicket4=models.FloatField(default=0)
+    wicket5=models.FloatField(default=0)
+
+    economy1=models.FloatField(default=0)
+    economy2=models.FloatField(default=0)
+    economy3=models.FloatField(default=0)
+    economy4=models.FloatField(default=0)
+    economy5=models.FloatField(default=0)
+
+    catches1=models.FloatField(default=0)
+    catches2=models.FloatField(default=0)
+    catches3=models.FloatField(default=0)
+    catches4=models.FloatField(default=0)
+    catches5=models.FloatField(default=0)
+
+
+    def setcurrentzero(self):
+        self.currentruns=0
+        self.save()
+    def updateruns(self,runs):
+        self.currentruns=self.currentruns+runs
+        self.save()
+    def updateballsfaced(self):
+        self.currentballsfaced= self.currentballsfaced+1
+        self.save()
+    def updateballsbowled(self):
+        self.currentballsbowled=self.currentballsbowled+1
+        self.save()
+    def updatecatches(self):
+        self.currentcatches=self.currentcatches+1
+        self.save()
+    def updatewickets(self):
+        self.currentwickets=self.currentwickets+1
+        self.save()
+    def updaterunsgiven(self,runs):
+        
+        self.currentrunsgiven=self.currentrunsgiven+runs
+        self.save()
+
+    def updatepointer(self):
+        if self.i==1:
+            self.runs1=self.currentruns
+            if self.currentballsfaced>0:
+                self.sr1=(self.currentruns*100)/(self.currentballsfaced)
+                self.sr1=float("{:.2f}".format(self.sr1))
+            self.wicket1=self.currentwickets
+            if self.currentballsbowled>0:
+                self.economy1=(self.currentrunsgiven)/(self.currentballsbowled/6)
+                self.economy1=float("{:.1f}".format(self.economy1))
+            self.catches1=self.currentcatches
+            self.i=2
+            self.save()
+        elif self.i==2:
+            self.runs2=self.currentruns
+            if self.currentballsfaced>0:
+                self.sr2=(self.currentruns*100)/(self.currentballsfaced)
+                self.sr2=float("{:.2f}".format(self.sr2))
+            self.wicket2=self.currentwickets
+            if self.currentballsbowled>0:
+                self.economy2=(self.currentrunsgiven)/(self.currentballsbowled/6)
+                self.economy2=float("{:.1f}".format(self.economy2))
+            self.catches2=self.currentcatches
+            self.i=3
+            self.save()
+        elif self.i==3:
+            self.runs3=self.currentruns
+            if self.currentballsfaced>0:
+                self.sr3=(self.currentruns*100)/(self.currentballsfaced)
+                self.sr3=float("{:.2f}".format(self.sr3))
+            self.wicket3=self.currentwickets
+            if self.currentballsbowled>0:
+                self.economy3=(self.currentrunsgiven)/(self.currentballsbowled/6)
+                self.economy3=float("{:.1f}".format(self.economy3))
+            self.catches3=self.currentcatches
+            self.i=4
+            self.save()
+        elif self.i==4:
+            self.runs4=self.currentruns
+            if self.currentballsfaced>0:
+                self.sr4=(self.currentruns*100)/(self.currentballsfaced)
+                self.sr4=float("{:.2f}".format(self.sr4))
+            self.wicket4=self.currentwickets
+            if self.currentballsbowled>0:
+                self.economy4=(self.currentrunsgiven)/(self.currentballsbowled/6)
+                self.economy4=float("{:.1f}".format(self.economy4))
+            self.catches4=self.currentcatches
+            self.i=5
+            self.save()
+        else :
+            self.runs5=self.currentruns
+            if self.currentballsfaced>0:
+                self.sr5=(self.currentruns*100)/(self.currentballsfaced)
+                self.sr5=float("{:.2f}".format(self.sr5))
+            self.wicket5=self.currentwickets
+            if self.currentballsbowled>0:
+                self.economy5=(self.currentrunsgiven)/(self.currentballsbowled/6)
+                self.economy5=float("{:.1f}".format(self.economy5))
+            self.catches5=self.currentcatches
+            self.i=1
+            self.save()
+
+        self.currentform= (self.runs1+self.runs2+self.runs3+self.runs4+self.runs5) + (self.wicket1+self.wicket2+self.wicket3+self.wicket4+self.wicket5)*10 + 0.01*(self.sr1+self.sr2+self.sr3+self.sr4+self.sr5)+ 0.01*(self.catches1+self.catches2+self.catches3+self.catches4+self.catches5) + 0.01*(self.economy1+self.economy2+self.economy3+self.economy4+self.economy5)
+
+        self.save()
+
+
     

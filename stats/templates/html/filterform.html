@@ -1,0 +1,27 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+<link href="../static/assets/css/filter.css" rel="stylesheet">
+
+<body class=ki>
+    <div class="container">
+<div class="row">
+<div class="col-sm-4">
+	<!-- Category -->
+	<div class="single category">
+		<h3 class="side-title">MOST FORM</h3>
+		<ul class="list-unstyled">
+            {% for post in f %}
+            <li><a href="{% url 'playerProfile' post.name.name %}" title="">{{post.name.name}}<span style="float: right;">{{post.currentform}}</span></a></li>
+
+{% endfor%}
+			
+		
+		</ul>
+   </div>
+</div> 
+</div>
+</div>
+</body>
+
+{%endblock%}

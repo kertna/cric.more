@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import glob
-from .models import Player,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
+from .models import Player,Form,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
 # Create your views here.
 from django.http import HttpResponse
 import yaml
@@ -22,7 +22,9 @@ def Fantasy(request):
 
 def PlayerStats(request):
     return render(request, '../templates/html/PlayerStats.html')
-
+def filterform(request):
+    f= Form.objects.all().order_by('-currentform')
+    return render(request, '../templates/html/filterform.html',context={'f':f})
 def filterruns(request):
     player=Player.objects.all().order_by('-runs')
 
@@ -1294,7 +1296,7 @@ def matchuprecords(request):
 
                     outupdates= Matchups.objects.filter(name=wi,bowler=bo)
                     if not outupdates:
-                        outupdate1=Matchups(name=wi,bowler=bo)
+                        outupdate1=Matchups(name=outupdate,bowler=bo)
                         outupdate1.save()
                     outupdate1=Matchups.objects.get(name=wi,bowler=bo)
                   
@@ -1320,6 +1322,199 @@ def matchuprecords(request):
                 i.seteco()
                 i.setaverage()
                 i.setsr()
+
+        
+    return HttpResponse("updated")
+                        
+def updateform(request):
+    all=glob.glob("./stats/*.yaml")
+    for f in all:
+        with open(f,'r') as file:
+            every=Player.objects.all()
+            everyform=Form.objects.all()
+            for formplayer in everyform:
+                formplayer.setcurrentzero()
+            list_cricket=yaml.full_load(file)
+            ls=[]
+            listofplayers=[]
+            
+            
+                
+            for x in list_cricket["innings"][0]["1st innings"]["deliveries"]:
+                k=[key for key,value in x.items()]
+                ls.append(k[0])
+            
+            k=0
+            for i in ls:
+
+                wide=0
+                legbyes=0
+                e=0
+                bye=0
+                p=(list_cricket["innings"][0]["1st innings"]["deliveries"][k][i])
+                b=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["batsman"]
+                listofplayers.append(b)
+                bo=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["bowler"]
+                listofplayers.append(bo)
+                runs=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["runs"]["batsman"]
+                total=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["runs"]["total"]
+                if "extras" in p.keys():
+                    e=1
+                    var=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["extras"]
+                    if "wides" in var.keys():
+                        wide=1
+                    if "legbyes" in var.keys():
+                        legbyes=1
+                    if "byes" in var.keys():
+                        bye=1
+                pla= Player.objects.filter(name=b)
+                if not pla:
+                    pla=Player(name=b)
+                    pla.save()
+                pla=Player.objects.get(name=b)
+                f=Form.objects.filter(name=pla)
+                if not f:
+                    f=Form(name=pla)
+                    f.save()
+                f=Form.objects.get(name=pla)
+                f.updateruns(runs)
+                if wide==0:
+                    f.updateballsfaced()
+                play= Player.objects.filter(name=bo)
+                if not play:
+                    play=Player(name=bo)
+                    play.save()
+                play=Player.objects.get(name=bo)
+                fb=Form.objects.filter(name=play)
+                if not fb:
+                    fb=Form(name=play)
+                    fb.save()
+                fb=Form.objects.get(name=play)
+                if e==0 or legbyes==1 or bye==1:
+                    fb.updateballsbowled()
+                if legbyes==0 :
+                    fb.updaterunsgiven(total)
+
+                if "wicket" in p.keys():
+                    wi=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]["player_out"]
+                    #print(wi,end=":")
+                    outupdates= Player.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate=Player(name=wi)
+                        outupdate.save()
+
+                    outupdate=Player.objects.get(name=wi)
+
+                    outupdates= Form.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate1=Form(name=outupdate)
+                        outupdate1.save()
+                    outupdate1=Form.objects.get(name=wi)
+                  
+                    ki=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]["kind"]
+           
+                    x=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]
+           
+                    if "fielders" in x.keys():
+                        c=list_cricket["innings"][0]["1st innings"]["deliveries"][k][i]["wicket"]["fielders"][0]
+                        
+                        if ki != "run out":
+                            fb.updatewickets()
+                            #f.updateouts()
+                    else:
+                        fb.updatewickets()
+                        #f.updateouts()
+
+                k=k+1
+            
+            
+            ls1=[]
+            for x in list_cricket["innings"][1]["2nd innings"]["deliveries"]:
+                k=[key for key,value in x.items()]
+                
+                ls1.append(k[0])
+            k=0
+            for i in ls1:
+                wide=0
+                legbyes=0
+                e=0
+                bye=0
+                p=(list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i])
+                b=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["batsman"]
+                listofplayers.append(b)
+                bo=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["bowler"]
+                listofplayers.append(bo)
+                runs=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["batsman"]
+                total=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["runs"]["total"]
+                pla= Player.objects.filter(name=b)
+                if not pla:
+                    pla=Player(name=b)
+                    pla.save()
+                pla=Player.objects.get(name=b)
+                f=Form.objects.filter(name=pla)
+                if not f:
+                    f=Form(name=pla)
+                    f.save()
+                f=Form.objects.get(name=pla)
+                f.updateruns(runs)
+                if wide==0:
+                    f.updateballsfaced()
+                play= Player.objects.filter(name=bo)
+                if not play:
+                    play=Player(name=bo)
+                    play.save()
+                play=Player.objects.get(name=bo)
+                fb=Form.objects.filter(name=play)
+                if not fb:
+                    fb=Form(name=play)
+                    fb.save()
+                fb=Form.objects.get(name=play)
+                if e==0 or legbyes==1 or bye==1:
+                    fb.updateballsbowled()
+                if legbyes==0:
+                    fb.updaterunsgiven(total)
+
+                if "wicket" in p.keys():
+                    wi=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["player_out"]
+                    #print(wi,end=":")
+                    outupdates= Player.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate=Player(name=wi)
+                        outupdate.save()
+
+                    outupdate=Player.objects.get(name=wi)
+
+                    outupdates= Form.objects.filter(name=wi)
+                    if not outupdates:
+                        outupdate1=Form(name=outupdate)
+                        outupdate1.save()
+                    outupdate1=Form.objects.get(name=wi)
+                  
+                  
+                    ki=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["kind"]
+           
+                    x=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]
+           
+                    if "fielders" in x.keys():
+                        c=list_cricket["innings"][1]["2nd innings"]["deliveries"][k][i]["wicket"]["fielders"][0]
+                        
+                        if ki != "run out":
+                            fb.updatewickets()
+                            #f.updateouts()
+                    else:
+                        fb.updatewickets()
+                        #f.updateouts()
+
+                k=k+1
+            
+            res=N.array(listofplayers)
+            print("hmm")
+            unique_res=N.unique(listofplayers)
+
+            for some in unique_res:
+                print(some)
+                pin=Form.objects.get(name=some)
+                pin.updatepointer()
 
         
     return HttpResponse("updated")

@@ -19,11 +19,13 @@ from django.urls import path
 from stats import views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('update/',views.createprofile,name="c"),
+    #path('update/',views.createprofile,name="c"),
     path('updatedep/',views.updatedepends,name="s"),
     path('matchups/',views.matchuprecords, name='matchup'),
+    path('form/',views.updateform, name='form'),
     path('',views.home, name='home'),
     path('filterruns/',views.filterruns, name='filterruns'),
+    path('filterform/',views.filterform, name='filterform'),
     path('filter/',views.filter, name='filter'),
     path('Fantasy',views.Fantasy , name= 'Fantasy'),
     path('PlayerStats', views.PlayerStats, name='PlayerStats'),
