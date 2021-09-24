@@ -38,13 +38,13 @@
     <div class="container d-flex justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html"><span>Cric</span>More</a></h1>
+        <h1><a href="{% url 'home' %}"><span>Cric</span>More</a></h1>
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'Fantasy' %}">Fantasy</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'predictedteam' %}">Fantasy</a></li>
           <li><a class="nav-link scrollto" href="{% url 'filter' %}">Filters</a></li>
           <li><a class="nav-link scrollto" href="{% url 'PlayerStats' %}">Stats</a></li>
           <li><a class="nav-link scrollto" href="{% url 'm' %}">Matchups</a></li>

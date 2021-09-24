@@ -1,6 +1,19 @@
 from djongo import models
-
+import json
 # Create your models here.reateProfile 
+class FantasyTeam(models.Model):
+    id=models.IntegerField(default=1,primary_key=True)
+    team=models.JSONField(default=[])
+
+    def setteam(self,team):
+        self.team=team
+        self.save()
+    
+    def getteam(self):
+        t=self.team
+        #convertedteam= json.loads(t)
+        return t
+
 
 
 class Player(models.Model):

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 import glob
+import json
 from pulp import *
 import random
-from .models import FantasyPrediction, Player,Form,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
+from .models import FantasyTeam, FantasyPrediction, Player,Form,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
 # Create your views here.
 from django.http import HttpResponse
 import yaml
@@ -283,9 +284,10 @@ def predict(request):
             wkt.append(shortforms(teams[mapping[i]]))
             wkc.append(credits[mapping[i]])
 
-
+    
     context = {
-				
+				't1':team1,
+                't2':team2,
                 'b':b,
                 'bo':bo,
                 'ar':ar,
@@ -301,7 +303,24 @@ def predict(request):
                 
                 
 			}
+    #finalans=json.dumps(context)
+    ft=FantasyTeam.objects.filter(id=1)
+    if not ft:
+        ft=FantasyTeam(id=1)
+        ft.save()
+    ft=FantasyTeam.objects.get(id=1)
+    ft.setteam(context)
+
+    return HttpResponse("PREDICTED")
+
+def predictedteam(request):
+    ft=FantasyTeam.objects.filter(id=1)
+    if not ft:
+        return HttpResponse("NOT AVAILABLE")
+    ft=FantasyTeam.objects.get(id=1)
+    context=ft.getteam()
     return render(request, '../templates/html/Fantasy.html',context)
+    
 def home(request):
     return render(request, '../templates/html/home.html')
 

@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'ipl.wsgi.application'
    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 #}
-'''DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'djongo',
             'NAME': 'cricmore',
@@ -89,8 +89,8 @@ WSGI_APPLICATION = 'ipl.wsgi.application'
                 'host': 'mongodb+srv://MAHI:cricmore@cluster0.epwxc.mongodb.net/cricmore?retryWrites=true&w=majority'
             }  
         }
-}'''
-DATABASES = {
+}
+'''DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'ipl20-20',
@@ -98,7 +98,7 @@ DATABASES = {
            'host': 'localhost:27017',
         }
     }
-}
+}'''
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
