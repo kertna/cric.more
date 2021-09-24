@@ -1,5 +1,6 @@
 {% extends "html/base.html" %}
 {% load static %}
+
 {% block content %}
     <link href="../static/assets/css/fantasy.css" rel="stylesheet">
     <body class="ki">
@@ -9,7 +10,7 @@
                 <div class="col-sm-4">
                     <!-- Category -->
                     <div class="single category">
-                        <h3 class="side-title">Fantasy Teams</h3>
+                        <h3 class="side-title">Fantasy Team</h3>
                     </div>
                 </div>
             </div>
@@ -25,32 +26,32 @@
                         <div class="col-md-5">
                             <div>
                                 <h4>Name</h4>
+                                {% for i in b %}
                                 <div>
-                                    <p>KL Rahul</p>
-                                    <p>Mayank Agarwal</p>
-                                    <p>Kane Williamson (C)</p>
+                                    <p>{{i}}</p>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <h4>Team</h4>
                             </div>
+                            {% for i in bt%}
                             <div>
-                                <p>Punjab Kings</p>
-                                <p>Punjab Kings</p>
-                                <p>Sunrisers Hyderabad</p>
+                                <p>{{i}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="col-md-3">
                             <div>
                                 <h4>Credits</h4>
                             </div>
+                            {% for i in bc%}
                             <div>
-                                <p>-</p>
-                                <p>-</p>
-                                <p>-</p>
+                                <p>{{i}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="row row-1" >
@@ -58,41 +59,38 @@
                             <div>
                                 <h4>Name</h4>
                             </div>
-                            <div>
-                                <P>Mohammed Shami</P>
-                                <p>Ravi Bishnoi</p>
-                                <p>T-Natarajan</p>
-                                <p>Rashid Khan (VC)</p>
-                            </div>
+                            {% for i in bo %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <h4>Team</h4>
                             </div>
+                            {% for i in bot%}
                             <div>
-                                <p>Punjab Kings</p>
-                                <p>Punjab Kings</p>
-                                <p>Sunrisers Hyderabad</p>
-                                <p>Sunrisers Hyderabad</p>
-
+                                <p>{{i}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="col-md-3">
                             <div>
                                 <h4>Credits</h4>
                             </div>
+                            {% for i in boc%}
                             <div>
-                                <p>-</p>
-                                <p>-</p>
-                                <P>-</P>
+                                <p>{{i}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <div class="section-2 wf-section">
                     <div class="w-layout-grid grid-4">
-                        <h3>Wicket Keeper</h3>
                         <h3>All Rounder</h3>
+                        <h3>WicketKeeper</h3>
                     </div>
                 </div>
                 <div class="w-layout-grid grid-2">
@@ -101,28 +99,31 @@
                             <div>
                                 <h4>Name</h4>
                             </div>
+                            {% for i in ar %}
                             <div>
-                                <p>Nicholas Pooran</p>
-                                <p>Jhony Bairstow</p>
+                                <p>{{i}}</p>
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <h4>Team</h4>
                             </div>
-                            <div>
-                                <p>Punjab Kings</p>
-                                <p>Sunrisers Hyderabad</p>
-                            </div>
+                            {% for i in art %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
                         </div>
                         <div class="col-md-3">
                             <div>
                                 <h4>Credits</h4>
                             </div>
-                            <div>
-                                <p>-</p>
-                                <P>-</P>
-                            </div>
+                            {% for i in arc %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
                         </div>
                     </div>
                     <div class="row row-4">
@@ -130,30 +131,33 @@
                             <div>
                                 <h4>Name</h4>
                             </div>
-                            <div>
-                                <p>
-                                    Chirs Gayle
-                                </p>
-                                <P>Kedar Jadhav</P>
-                            </div>
+                            {% for i in wk %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <h4>Team</h4>
                             </div>
-                            <div>
-                                <p>Punjab Kings</p>
-                                <p>Sunrisers Hyderabad</p>
-                            </div>
+                            {% for i in wkt %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
                         </div>
                         <div class="col-md-3">
                             <div>
                                 <h4>Credits</h4>
                             </div>
-                            <div>
-                                <p>-</p>
-                                <P>-</P>
-                            </div>
+                            {% for i in wkc %}
+                                <div>
+                                    <p>{{i}}</p>
+                                </div>
+                                {% endfor %}
+                        </div>
+                            
                         </div>
                     </div>
                 </div>

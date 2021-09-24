@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import glob
-from .models import Player,Form,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
+from pulp import *
+import random
+from .models import FantasyPrediction, Player,Form,PowerPlay,PlayerTeam,MiddleOvers,DeathOvers,Matchups,City,Position,AgainstTeam
 # Create your views here.
 from django.http import HttpResponse
 import yaml
@@ -12,9 +14,296 @@ import numpy as N
 from django.templatetags.static import static
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
+
+def overall(name):
+    p= Player.objects.get(name=name)
+    points1=0
+    if p.innings>0:
+        points1= (p.runs+ p.fours + 2*(p.sixes)+ 16*(p.hundreds)+ 8*(p.fifties))//p.innings
+    if p.ballsbowled>0:
+        wickets= (24*p.wickets)/p.ballsbowled
+        threehaul=(24*p.threehaul)/p.ballsbowled
+        fivehaul=(24*p.fivehaul)/p.ballsbowled
+        points2 = 25*(wickets)+ 5*(p.threehaul) +15*(p.fivehaul)
+    else:
+        points2=0
+    points=points1+points2+ 8*(p.catches)
+    if p.strikerate >150:
+        points=points+3
+    elif p.strikerate<70:
+        points=points-3
+    
+    if p.economy<6:
+        points=points+3
+    elif p.economy>10:
+        points=points-3
+    
+    return points
+def against(name,team):
+    p=AgainstTeam.objects.filter(name=name,Team=team)
+    points1=0
+    if not p:
+        return 0
+    p=AgainstTeam.objects.get(name=name,Team=team)
+    p= Player.objects.get(name=name)
+    if p.innings>0:
+        points1= (p.runs+ p.fours + 2*(p.sixes)+ 16*(p.hundreds)+ 8*(p.fifties))//p.innings
+    if p.ballsbowled>0:
+        wickets= (24*p.wickets)/p.ballsbowled
+        threehaul=(24*p.threehaul)/p.ballsbowled
+        fivehaul=(24*p.fivehaul)/p.ballsbowled
+        points2 = 25*(wickets)+ 5*(p.threehaul) +15*(p.fivehaul)
+    else:
+        points2=0
+    points=points1+points2+ 8*(p.catches)
+    if p.strikerate >150:
+        points=points+3
+    elif p.strikerate<70:
+        points=points-3
+    
+    if p.economy<6:
+        points=points+3
+    elif p.economy>10:
+        points=points-3
+    
+    return points
+
+def city(name,ground):
+    p=City.objects.filter(name=name,City=ground)
+    points1=0
+    if not p:
+        return 0
+    p=City.objects.get(name=name,City=ground)
+    p= Player.objects.get(name=name)
+    if p.innings>0:
+        points1= (p.runs+ 16*(p.hundreds)+ 8*(p.fifties))//p.innings
+    if p.ballsbowled>0:
+        wickets= (24*p.wickets)/p.ballsbowled
+        threehaul=(24*p.threehaul)/p.ballsbowled
+        fivehaul=(24*p.fivehaul)/p.ballsbowled
+        points2 = 25*(wickets)+ 5*(p.threehaul) +15*(p.fivehaul)
+    else:
+        points2=0
+    points=points1+points2+ 8*(p.catches)
+    if p.strikerate >150:
+        points=points+3
+    elif p.strikerate<70:
+        points=points-3
+    
+    if p.economy<6:
+        points=points+3
+    elif p.economy>10:
+        points=points-3
+    
+    return points
+
+def form(name):
+    f=Form.objects.filter(name=name)
+    if not f:
+        return 0
+    f= Form.objects.get(name=name)
+    return f.currentform
+def calculate(name,role,ground,againstteam):
+    if name=='OTHER' and role[name]=='Bowler':
+        return 10
+    if name=='OTHER' and role[name]=='Batsman':
+        return 20
+    if name=='OTHER' and role[name]=='Allrounder':
+        return 25
+    
+    overallperformance=overall(name)
+
+    againstteamperformance= against(name,againstteam[name])
+
+    groundperformance=city(name,ground)
+
+    recentperformance = form(name)
+    
+    return 0.4*overallperformance + 0.2*againstteamperformance+0.2*groundperformance+0.2*recentperformance
+    
+def setagainstteams(teams,team1,team2):
+    ans={}
+    for i in teams:
+        if teams[i]==team1:
+            ans[i]=team2
+        else:
+            ans[i]=team1
+    
+    return ans
+def getbatsmen(players,roles):
+    di={}
+    for i in players:
+        if roles[i]=='Batsman':
+            di[i]=1
+        else:
+            di[i]=0
+    return di
+
+def getbowlers(players,roles):
+    di={}
+    for i in players:
+        if roles[i]=='Bowler':
+            di[i]=1
+        else:
+            di[i]=0
+    return di
+def getar(players,roles):
+    di={}
+    for i in players:
+        if roles[i]=='Allrounder':
+            di[i]=1
+        else:
+            di[i]=0
+    return di
+def getwk(players,roles):
+    di={}
+    for i in players:
+        if roles[i]=='WicketKeeper':
+            di[i]=1
+        else:
+            di[i]=0
+    return di
+def t1(players,teams,team1,team2):
+    playersinteam1={}
+    for i in teams:
+        if teams[i]==team1:
+            playersinteam1[i]=1
+        else:
+            playersinteam1[i]=0
+    return playersinteam1
+
+def t2(players,teams,team1,team2):
+    playersinteam2={}
+    for i in teams:
+        if teams[i]==team2:
+            playersinteam2[i]=1
+        else:
+            playersinteam2[i]=0
+    return playersinteam2
+def shortforms(team):
+    if team=='Sunrisers Hyderabad':
+        return 'SRH'
+    elif team=='Mumbai Indians':
+        return 'MI'
+    elif team=='Royal Challengers Bangalore':
+        return 'RCB'
+    elif team=='Kolkata Knight Riders':
+        return 'KKR'
+    elif team=='Chennai Super Kings':
+        return 'CSK'
+    elif team=='Kings XI Punjab':
+        return 'PK'
+    elif team=='Delhi Daredevils':
+        return 'DD'
+    else:
+        return 'RR'
+
+
+def predict(request):
+    model = LpProblem("Fantasy Cricket",LpMaximize)
+    f=FantasyPrediction.objects.get(id=1)
+
+    ground= f.ground
+    team1=f.team1
+    team2=f.team2
+
+    player= f.getplayers()
+    player_vars = LpVariable.dicts("",player,0,1,LpBinary)
+    mapping={}
+    for i in player_vars:
+        mapping[str(player_vars[i])]=i
+    #print(mapping['_AB_Agarkar'])
+    #print(player_vars)
+    credit=f.getplayercredits()
+    credits = {(player[i]): credit[i] for i in range(0,22)} 
+
+    role= f.getroles()
+    roles={(player[i]): role[i] for i in range(0,22)} 
+    
+    teams= f.setteams()
+    
+    againstteams= setagainstteams(teams,team1,team2)
+    
+    points={(i): calculate(i,roles,ground,againstteams) for i in player} 
+
+    batsmen=getbatsmen(player,roles)
+    bowlers=getbowlers(player,roles)
+    allrounders=getar(player,roles)
+    wk=getwk(player,roles)
+    playersinteam1=t1(player,teams,team1,team2)
+    playersinteam2=t2(player,teams,team1,team2)
+    #print(wk)
+    model+=lpSum([points[i]*player_vars[i] for i in player]), "Total Points"
+    model+= lpSum([player_vars[i] for i in player]) == 11, "Total 11 Players"
+    model += lpSum([credits[i] * player_vars[i] for i in player]) <= 100.0, "Total Credits"
+    model+= lpSum([batsmen[i]*player_vars[i] for i in player]) >=3 , "Minimum 3 bastmen"
+    model+= lpSum([bowlers[i]*player_vars[i] for i in player]) >=3, "Minimum 3 bowlers"
+    model+= lpSum([wk[i]*player_vars[i] for i in player]) >=1 , "Minimum 4 wk"
+    model+= lpSum([wk[i]*player_vars[i] for i in player]) <=4, "Maximum 4 wk"
+    model+= lpSum([allrounders[i]*player_vars[i] for i in player]) >=1, "Minimum 1 allrounders"
+    model+= lpSum([batsmen[i]*player_vars[i] for i in player]) <=6 , "Maximum 6 bastmen"
+    model+= lpSum([bowlers[i]*player_vars[i] for i in player]) <=6, "Maximum 6 bowlers"
+    model+= lpSum([allrounders[i]*player_vars[i] for i in player]) <=4, "Maximum 4 allrounders"
+    model+= lpSum([playersinteam1[i]*player_vars[i] for i in player]) <=7 , "Maximum 7 players in team1"
+    model+= lpSum([playersinteam2[i] *player_vars[i] for i in player]) <=7, "Maximum 7 players in team2"
+    status = model.solve()
+    finalprediction=[]
+    for var in model.variables():
+        if var.value()==1:
+            finalprediction.append(var.name)
+    b=[]
+    bo=[]
+    ar=[]
+    wk=[]
+    bt=[]
+    bot=[]
+    art=[]
+    wkt=[]
+    bc=[]
+    boc=[]
+    arc=[]
+    wkc=[]
+    for i in finalprediction:
+        
+        if roles[mapping[i]]=='Batsman':
+            b.append(mapping[i])
+            bt.append(shortforms(teams[mapping[i]]))
+            bc.append(credits[mapping[i]])
+            
+        elif roles[mapping[i]]=='Bowler':
+            bo.append(mapping[i])
+            bot.append(shortforms(teams[mapping[i]]))
+            boc.append(credits[mapping[i]])
+        elif roles[mapping[i]]=='Allrounder':
+            ar.append(mapping[i])
+            art.append(shortforms(teams[mapping[i]]))
+            arc.append(credits[mapping[i]])
+        else:
+            wk.append(mapping[i])
+            wkt.append(shortforms(teams[mapping[i]]))
+            wkc.append(credits[mapping[i]])
+
+
+    context = {
+				
+                'b':b,
+                'bo':bo,
+                'ar':ar,
+                'wk':wk,
+                'bt':bt,
+                'bot':bot,
+                'art':art,
+                'wkt':wkt,
+                'bc':bc,
+                'boc':boc,
+                'arc':arc,
+                'wkc':wkc
+                
+                
+			}
+    return render(request, '../templates/html/Fantasy.html',context)
 def home(request):
     return render(request, '../templates/html/home.html')
-
 
 def Fantasy(request):
     return render(request, '../templates/html/Fantasy.html')
