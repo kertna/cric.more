@@ -25,7 +25,7 @@ SECRET_KEY = 'x))-8_61cj%nu2d0d+8s!!49kcs%b3il$&rm!(q^g8blwf$*3r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -86,7 +86,7 @@ DATABASES = {
             'NAME': 'cricmore',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb+srv://MAHI:cricmore@cluster0.epwxc.mongodb.net/cricmore?retryWrites=true&w=majority'
+                'host': 'mongodb+srv://MAHI:cricmore@cluster0.epwxc.mongodb.net/cricmore?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority'
             }  
         }
 }

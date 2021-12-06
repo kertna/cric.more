@@ -44,20 +44,16 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'predictedteam' %}">Fantasy</a></li>
           <li><a class="nav-link scrollto" href="{% url 'filter' %}">Filters</a></li>
           <li><a class="nav-link scrollto" href="{% url 'PlayerStats' %}">Stats</a></li>
           <li><a class="nav-link scrollto" href="{% url 'm' %}">Matchups</a></li>
-          <li class="dropdown"><a href="#team"><span>Team</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="#team"><span> Fantasy Teams</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Chennai Super Kings</a></li>
-              <li><a href="#">Sunrisers Hyderabad</a></li>
-              <li><a href="#">Royal Challengers Bangalore</a></li>
-              <li><a href="#">Mumbai Indians</a></li>
-              <li><a href="#">Kolkata Knight Riders</a></li>
-              <li><a href="#">Punjab Kings</a></li>
-              <li><a href="#">Delhi Capitals</a></li>
-              <li><a href="#">Rajasthan Royals</a></li>
+              <li><a href="{% url 'predictedteam1' %}">Overall Performance</a></li>
+              <li><a href="{% url 'predictedteam3' %}">Against Team Performance</a></li>
+              <li><a href="{% url 'predictedteam2' %}">Ground Performance</a></li>
+              <li><a href="{% url 'predictedteam4' %}">Form</a></li>
+              <li><a href="{% url 'predictedteam5' %}">Suggested Team</a></li>
             </ul>
           </li>
           <li>

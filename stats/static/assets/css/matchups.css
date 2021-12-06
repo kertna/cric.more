@@ -1,7 +1,7 @@
 .flip-card {
     background-color: transparent;
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 600px;
     perspective: 1000px;
     margin: 30px;
 }
@@ -29,14 +29,14 @@
 .flip-card-front1 {
     background-image: url("../img/matchups/1m.jpeg");
     background-repeat: no-repeat;
-    background-size: 700px 700px;
+    background-size: 600px 600px;
     color: black;
 }
 
 .flip-card-front {
     background-image: url("../img/matchups/2m.jpeg");
     background-repeat: no-repeat;
-    background-size: 700px 700px;
+    background-size: 600px 600px;
     color: black;
 }
 
@@ -48,7 +48,7 @@
 
 .column {
     float: left;
-    width: 700px;
+    width: 600px;
     padding: 0 10px;
     margin: 10px;
 }

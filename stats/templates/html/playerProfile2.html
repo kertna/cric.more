@@ -73,7 +73,7 @@ body {
                 <div class="column w-col w-col-9">
                     <br>
                     <h1 class="heading" style ="border-left: 6px solid blue;
-                    background-color: lightblue;padding: 5px;">{{player.name}}<br></h1>
+                    background-color: lightblue;padding: 5px;">{{player.name.name}}<br></h1>
                     
                 </div>
             </div>
@@ -150,13 +150,13 @@ body {
     <div class="card">
    
       <h3 style="color: black;">OTHERS</h3>
-      <a href="{% url 'teamlist' id=player.name %}" target="_self" >Statistics for each Team played</a>
-      <a href="{% url 'cl' id=player.name %}" target="_self">Statistics in City</a>
-      <a href="{% url 'pp' id=player.name %}" target="_self">Statistics at Position</a>
-      <a href="{% url 'pp' id=player.name %}" target="_self">Statistics in Powerplay</a>
-      <a href="{% url 'mo' id=player.name %}" target="_self">Statistics in MiddleOvers</a>
-      <a href="{% url 'do' id=player.name %}" target="_self">Statistics in DeathOvers</a>
-      <a href="{% url 'al' id=player.name %}" target="_self">Statistics against Team</a>
+      <a href="{% url 'teamlist' id=player.name.name %}" target="_self" >Statistics for each Team played</a>
+      <a href="{% url 'cl' id=player.name.name %}" target="_self">Statistics in City</a>
+      <a href="{% url 'pp' id=player.name.name %}" target="_self">Statistics at Position</a>
+      <a href="{% url 'pp' id=player.name.name %}" target="_self">Statistics in Powerplay</a>
+      <a href="{% url 'mo' id=player.name.name %}" target="_self">Statistics in MiddleOvers</a>
+      <a href="{% url 'do' id=player.name.name %}" target="_self">Statistics in DeathOvers</a>
+      <a href="{% url 'al' id=player.name.name %}" target="_self">Statistics against Team</a>
    </div>
   </div>
   

@@ -1079,6 +1079,12 @@ class FantasyPrediction(models.Model):
             p.append(name)
         return p
 
+    def addintoteamlist(self,pt,name,o,t):
+        if name=='OTHER':
+            pt[o]=t
+        else:
+            pt[name]=t
+        return pt
     def teamfind(self,team):
         tf={}
         for i in team:
@@ -1168,28 +1174,29 @@ class FantasyPrediction(models.Model):
 
     def setteams(self):
         pt={}
-        pt[self.player1]=self.teamofplayer1
-        pt[self.player2]=self.teamofplayer2
-        pt[self.player3]=self.teamofplayer3
-        pt[self.player4]=self.teamofplayer4
-        pt[self.player5]=self.teamofplayer5
-        pt[self.player6]=self.teamofplayer6
-        pt[self.player7]=self.teamofplayer7
-        pt[self.player8]=self.teamofplayer8
-        pt[self.player9]=self.teamofplayer9
-        pt[self.player10]=self.teamofplayer10
-        pt[self.player11]=self.teamofplayer11
-        pt[self.player12]=self.teamofplayer12
-        pt[self.player13]=self.teamofplayer13
-        pt[self.player14]=self.teamofplayer14
-        pt[self.player15]=self.teamofplayer15
-        pt[self.player16]=self.teamofplayer16
-        pt[self.player17]=self.teamofplayer17
-        pt[self.player18]=self.teamofplayer18
-        pt[self.player19]=self.teamofplayer19
-        pt[self.player20]=self.teamofplayer20
-        pt[self.player21]=self.teamofplayer21
-        pt[self.player22]=self.teamofplayer22
+        pt=self.addintoteamlist(pt,self.player1,self.other1,self.teamofplayer1)
+        pt=self.addintoteamlist(pt,self.player2,self.other2,self.teamofplayer2)
+        pt=self.addintoteamlist(pt,self.player3,self.other3,self.teamofplayer3)
+        pt=self.addintoteamlist(pt,self.player4,self.other4,self.teamofplayer4)
+        pt=self.addintoteamlist(pt,self.player5,self.other5,self.teamofplayer5)
+        pt=self.addintoteamlist(pt,self.player6,self.other6,self.teamofplayer6)
+        pt=self.addintoteamlist(pt,self.player7,self.other7,self.teamofplayer7)
+        pt=self.addintoteamlist(pt,self.player8,self.other8,self.teamofplayer8)
+        pt=self.addintoteamlist(pt,self.player9,self.other9,self.teamofplayer9)
+        pt=self.addintoteamlist(pt,self.player10,self.other10,self.teamofplayer10)
+        pt=self.addintoteamlist(pt,self.player11,self.other11,self.teamofplayer11)
+        pt=self.addintoteamlist(pt,self.player12,self.other12,self.teamofplayer12)
+        pt=self.addintoteamlist(pt,self.player13,self.other13,self.teamofplayer13)
+        pt=self.addintoteamlist(pt,self.player14,self.other14,self.teamofplayer14)
+        pt=self.addintoteamlist(pt,self.player15,self.other15,self.teamofplayer15)
+        pt=self.addintoteamlist(pt,self.player16,self.other16,self.teamofplayer16)
+        pt=self.addintoteamlist(pt,self.player17,self.other17,self.teamofplayer17)
+        pt=self.addintoteamlist(pt,self.player18,self.other18,self.teamofplayer18)
+        pt=self.addintoteamlist(pt,self.player19,self.other19,self.teamofplayer19)
+        pt=self.addintoteamlist(pt,self.player20,self.other20,self.teamofplayer20)
+        pt=self.addintoteamlist(pt,self.player21,self.other21,self.teamofplayer21)
+        pt=self.addintoteamlist(pt,self.player22,self.other22,self.teamofplayer22)
+        
         
         tf=self.teamfind(pt)
         

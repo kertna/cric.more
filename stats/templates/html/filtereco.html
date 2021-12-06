@@ -11,8 +11,9 @@
 		<h3 class="side-title">BEST ECONOMY</h3>
 		<ul class="list-unstyled">
             {% for post in player %}
+			{% if post.economy %}
             <li><a href="{% url 'playerProfile' post.name %}" title="">{{post.name}}<span style="float: right;">{{post.economy}}</span></a></li>
-
+			{% endif %}
 {% endfor%}
 			
 		
